@@ -1,0 +1,10 @@
+{{/*
+SPDX-FileCopyrightText: 2026 TorrPlay
+
+SPDX-License-Identifier: MIT
+*/}}
+
+{{- $icon := resources.GetMatch (printf "icons/%s.*" .) -}}
+{{- with $icon -}}
+{{- .RelPermalink -}}
+{{- end -}}

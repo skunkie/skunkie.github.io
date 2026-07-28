@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 TorrPlay
+#
+# SPDX-License-Identifier: MIT
+
+baseURL: "https://torrplay.github.io/"
+title: "TorrPlay"
+theme: "hugo-book"
+
+disablePathToLower: true
+enableGitInfo: true
+enableRobotsTXT: true
+
+defaultContentLanguage: "en"
+defaultContentLanguageInSubdir: false
+
+publishDir: "public"
+
+module:
+  hugoVersion:
+    extended: true
+    min: "0.164.0"
+
+security:
+  allowContent:
+    - "text/html"
+    - "text/markdown"
+
+params:
+  BookTheme: "ayu-auto"
+  BookFavicon: "favicon.png"
+  BookLogo: "logo.png"
+
+  BookRepo: "https://github.com/torrplay/torrplay"
+  BookLastChangeLink: "{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}"
+  BookEditLink: "{{ .Site.Params.BookRepo }}/edit/main/{{ .Path }}"
+  BookSearch: true
+  BookComments: false
+  BookPortableLinks: "warning"
+  BookServiceWorker: "precache"
+  BookSection: "/"
+  Repo:
+    Owner: "torrplay"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: "nord"
+  tableOfContents:
+    startLevel: 1
+
+languages:
+  en:
+    label: English
+    contentDir: "content/en"
+    weight: 1
+    title: "TorrPlay"
+    menu:
+      after:
+        - name: "GitHub"
+          url: "https://github.com/torrplay/torrplay"
+          weight: 1
+          params:
+            bookIcon: "github"
+    params:
+      BookDateFormat: "January 2, 2006"
+  ru:
+    label: "Русский"
+    contentDir: "content/ru"
+    weight: 2
+    title: "TorrPlay"
+    menu:
+      after:
+        - name: "GitHub"
+          url: "https://github.com/torrplay/torrplay"
+          params:
+            bookIcon: "github"
+    params:
+      BookDateFormat: "2 January 2006"

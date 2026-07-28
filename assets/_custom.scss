@@ -1,0 +1,165 @@
+/*
+ * SPDX-FileCopyrightText: 2026 TorrPlay
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+@import "plugins/themes";
+
+/* Documentation Card Grid */
+.docs-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0 2.5rem 0;
+  align-items: stretch;
+}
+
+.docs-card-grid .docs-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  border-radius: 8px;
+  background-color: var(--body-background, #ffffff);
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  height: 100%;
+}
+
+.docs-card-grid .docs-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-link, #3b82f6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.docs-card-grid .docs-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.docs-card-grid .docs-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 6px;
+  background: var(--color-accent-note-tint, rgba(59, 130, 246, 0.1));
+  color: var(--color-link, #2563eb);
+  flex-shrink: 0;
+}
+
+.docs-card-grid .docs-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--body-font-color, #111827);
+}
+
+.docs-card-grid .docs-card-desc {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.55);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .docs-card-grid .docs-card-desc {
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+/* Page Navigation Footer */
+.docs-page-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.docs-page-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.docs-page-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Mermaid Diagram Layout */
+.mermaid {
+  text-align: center;
+  margin: 1.5rem 0;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+    background: transparent !important;
+  }
+}
+
+/* Copy Button for Code Blocks */
+.code-block-container {
+  position: relative;
+
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--gray-200, #d0d0d0);
+    border: none;
+    border-radius: 4px;
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--body-font-color, #000000);
+    line-height: 1;
+
+    &:hover {
+      background: var(--gray-500, #707070);
+      color: #ffffff;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button.copied {
+    opacity: 1;
+    background: var(--gray-500);
+    color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .code-block-container .copy-button {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .code-block-container .copy-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+}

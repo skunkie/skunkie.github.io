@@ -1,0 +1,517 @@
+{{/*
+SPDX-FileCopyrightText: 2026 TorrPlay
+
+SPDX-License-Identifier: MIT
+*/}}
+
+{{ define "main" }}
+<style>
+  .downloads-page {
+    width: 100%;
+  }
+
+  .downloads-page h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .downloads-page .error {
+    padding: 1rem;
+    background: var(--color-accent-caution-tint, rgba(239, 68, 68, 0.1));
+    border: 1px solid var(--color-accent-caution, #ef4444);
+    border-radius: var(--border-radius, 6px);
+    color: var(--color-accent-caution, #ef4444);
+  }
+
+  .downloads-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .downloads-page th, .downloads-page td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--gray-200, rgba(128, 128, 128, 0.2));
+  }
+
+  .downloads-page th {
+    background: var(--gray-100, rgba(128, 128, 128, 0.08));
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--body-font-color);
+  }
+
+  .downloads-page td a {
+    color: var(--color-link);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .downloads-page td a:hover {
+    text-decoration: underline;
+  }
+
+  .downloads-page th.hash, .downloads-page td.hash {
+    font-size: 0.8rem;
+    min-width: 140px;
+  }
+
+  .downloads-page .file-hash {
+    background: var(--gray-100, rgba(128, 128, 128, 0.1));
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    user-select: all;
+    color: inherit;
+    border: 1px solid var(--gray-200, rgba(128, 128, 128, 0.2));
+    transition: background-color 0.15s ease;
+  }
+
+  .downloads-page .file-hash:hover {
+    background: var(--gray-200, rgba(128, 128, 128, 0.2));
+  }
+
+  .downloads-page .os-section {
+    margin-top: 2rem;
+  }
+
+  .downloads-page .os-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .downloads-page .os-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .downloads-page .os-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-link);
+  }
+
+  .downloads-page .arch-badge {
+    display: inline-block;
+    background: var(--color-accent-note-tint, rgba(59, 130, 246, 0.15));
+    color: var(--color-link, #2563eb);
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .downloads-page .name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .downloads-page .type-badge {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .downloads-page .type-badge.package { background: var(--color-accent-note-tint); color: var(--color-accent-note); border: 1px solid transparent; }
+  .downloads-page .type-badge.installer { background: var(--color-accent-tip-tint); color: var(--color-accent-tip); border: 1px solid transparent; }
+  .downloads-page .type-badge.apk { background: var(--color-accent-warning-tint); color: var(--color-accent-warning); border: 1px solid transparent; }
+  .downloads-page .type-badge.aar { background: var(--color-accent-default-tint); color: var(--color-accent-default); border: 1px solid transparent; }
+  .downloads-page .type-badge.binary { background: var(--color-accent-important-tint); color: var(--color-accent-important); border: 1px solid transparent; }
+  .downloads-page .type-badge.appimage { background: var(--color-accent-note-tint); color: var(--color-accent-note); border: 1px solid transparent; }
+  .downloads-page .type-badge.archive { background: var(--color-accent-warning-tint); color: var(--color-accent-warning); border: 1px solid transparent; }
+  .downloads-page .type-badge.source { background: var(--color-accent-default-tint); color: var(--color-accent-default); border: 1px solid transparent; }
+
+  .downloads-page .version-select {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--gray-200, rgba(128, 128, 128, 0.3));
+    border-radius: var(--border-radius, 6px);
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: var(--body-background);
+    color: var(--body-font-color);
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    outline: none;
+  }
+
+  .downloads-page .version-select:focus {
+    border-color: var(--color-link);
+  }
+
+  .downloads-page .name a {
+    max-width: 400px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .downloads-page .version-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .downloads-page {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .downloads-page h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .downloads-page table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .downloads-page th,
+    .downloads-page td {
+      padding: 0.5rem 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .downloads-page th.hash,
+    .downloads-page td.hash {
+      min-width: 120px;
+      font-size: 0.75rem;
+    }
+
+    .downloads-page .os-section {
+      margin-top: 1.5rem;
+    }
+
+    .downloads-page .os-header h2 {
+      font-size: 1.15rem;
+      flex-wrap: wrap;
+    }
+
+    .downloads-page .os-header {
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .downloads-page .arch-badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+    }
+
+    .downloads-page .file-hash {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.3rem;
+    }
+
+    .downloads-page .type-badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.35rem;
+    }
+
+    .downloads-page .name a {
+      max-width: 200px;
+    }
+
+    .downloads-page .version-select {
+      width: 100%;
+      font-size: 16px;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .downloads-page .error {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .downloads-page .os-icon svg {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .downloads-page h1 {
+      font-size: 1.3rem;
+    }
+
+    .downloads-page table {
+      font-size: 0.8rem;
+    }
+
+    .downloads-page th,
+    .downloads-page td {
+      padding: 0.4rem 0.4rem;
+    }
+
+    .downloads-page th.hash,
+    .downloads-page td.hash {
+      min-width: 100px;
+    }
+
+    .downloads-page .os-header h2 {
+      font-size: 1.05rem;
+    }
+
+    .downloads-page .name a {
+      max-width: 150px;
+    }
+
+    .downloads-page .version-select {
+      font-size: 16px;
+    }
+  }
+</style>
+<div class="downloads-page">
+  <h1>{{ .Title }}</h1>
+  <div id="app-content">
+    <div id="downloads-selector"></div>
+    <div id="downloads-tables"></div>
+  </div>
+</div>
+<script>
+  (function() {
+    var repoOwner = "{{ site.Params.Repo.Owner }}";
+    var L = {
+      file:         "{{ i18n "file" }}",
+      size:        "{{ i18n "size" }}",
+      downloads:   "{{ i18n "downloadsCol" }}",
+      noReleases:  "{{ i18n "noReleases" }}",
+      otherFiles:  "{{ i18n "otherFiles" }}",
+      loadFailed:  "{{ i18n "loadFailed" }}",
+    };
+
+    var sizeNames = ["B", "KB", "MB", "GB"];
+    function formatSize(bytes) {
+      if (!bytes || bytes === 0) return "\u2014";
+      var i = Math.floor(Math.log(bytes) / Math.log(1024));
+      return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizeNames[i];
+    }
+
+    var osInfo = {
+      linux: {
+        name: "Linux",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="currentColor"><path d="M12.37 2c-2.3 0-4.07 1.57-4.07 3.93 0 1.13.36 2.22.95 3.08-1.52 1.08-2.4 2.65-2.4 4.35 0 3.1 2.37 5.64 5.52 5.64 1.16 0 2.26-.35 3.16-.98.9.63 2 1 3.16 1 3.15 0 5.52-2.54 5.52-5.65 0-1.7-.88-3.27-2.4-4.35.59-.86.95-1.95.95-3.08 0-2.36-1.77-3.93-4.07-3.93-1.06 0-2.07.38-2.86 1.03C14.44 2.38 13.43 2 12.37 2z"/></svg>'
+      },
+      darwin: {
+        name: "macOS",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.66-.8 1.11-1.92.99-3.04-.96.04-2.12.64-2.8 1.44-.61.71-1.14 1.86-1 2.97 1.07.08 2.16-.56 2.81-1.37z"/></svg>'
+      },
+      windows: {
+        name: "Windows",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.453l7.305-1.002v7.195H3V5.453zm0 13.094l7.305 1.002v-7.195H3v6.193zm8.324 1.141L21 21V11.646H11.324v8.041zM21 3l-9.676 1.341V10.65H21V3z"/></svg>'
+      },
+      android: {
+        name: "Android",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341a.996.996 0 0 0-.996.995v3.318a.996.996 0 0 0 1.992 0v-3.318a.996.996 0 0 0-.996-.995zm-11.046 0a.996.996 0 0 0-.996.995v3.318a.996.996 0 0 0 1.992 0v-3.318a.996.996 0 0 0-.996-.995zM7.054 8.647l-1.39-2.408a.428.428 0 0 0-.585-.156.429.429 0 0 0-.156.586l1.417 2.454C4.846 10.158 3.75 12.062 3.75 14.25h16.5c0-2.188-1.096-4.092-2.59-5.127l1.417-2.454a.429.429 0 0 0-.156-.586.428.428 0 0 0-.585.156l-1.39 2.408C15.65 8.232 13.9 7.969 12 7.969c-1.9 0-3.65.263-5.054.678zM9 11.625a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5zm6 0a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z"/></svg>'
+      }
+    };
+
+    var digests = {};
+
+    function getOS(filename) {
+      var f = filename.toLowerCase();
+      if (f.includes("darwin")) return "darwin";
+      if (f.includes("linux")) return "linux";
+      if (f.includes("windows") || f.includes("nsis")) return "windows";
+      if (f.includes("android")) return "android";
+      if (f.includes(".aar")) return null;
+      if (f.includes(".dmg") || f.includes("macos") || f.includes("aarch64-apple") || f.includes("x86_64-apple")) return "darwin";
+      if (f.includes(".msi") || f.includes(".exe") || f.includes("setup")) return "windows";
+      if (f.includes(".apk")) return "android";
+      if (f.includes(".deb") || f.includes(".rpm") || f.includes("appimage") || f.includes("tauri")) return "linux";
+      return null;
+    }
+
+    function getArch(filename) {
+      var f = filename.toLowerCase();
+      if (f.includes("arm64") || f.includes("aarch64")) return "arm64";
+      if (f.includes("amd64") || f.includes("x86_64") || f.includes("x64")) return "amd64";
+      if (f.includes("armeabi")) return "armeabi-v7a";
+      if (f.includes("x86_64") && f.includes("android")) return "x86_64";
+      if (f.includes("x86") && !f.includes("64")) return "x86";
+      if (f.includes("universal")) return "universal";
+      return "other";
+    }
+
+    function getFileType(filename) {
+      var f = filename.toLowerCase();
+      if (f.includes(".deb") || f.includes(".rpm")) return "package";
+      if (f.includes(".msi") || f.includes("nsis") || f.includes("setup")) return "installer";
+      if (f.includes(".dmg")) return "installer";
+      if (f.includes(".apk")) return "apk";
+      if (f.includes(".aar")) return "aar";
+      if (f.includes(".exe")) return "binary";
+      if (f.includes("appimage")) return "appimage";
+      if (f.includes(".tar") || f.includes(".zip")) return "archive";
+      if (f.includes("jar") || f.includes("sources")) return "source";
+      return "binary";
+    }
+
+    function sortByName(a, b) {
+      return a.name.localeCompare(b.name);
+    }
+
+    function renderRow(a) {
+      var digest = digests[a.name] || null;
+      var hashDisplay = digest ? digest.substring(0, 16) + "…" : "—";
+      var clickable = digest ? " onclick=\"navigator.clipboard.writeText(this.getAttribute('data-hash'));this.title='Copied!'\" style='cursor:pointer;' data-hash='" + digest + "'" : "";
+      var clickTitle = digest ? "title='click to copy'" : "";
+      return "<tr>" +
+        "<td class='name'><a href='" + a.browser_download_url + "'>" + a.name + "</a><span class='type-badge " + getFileType(a.name) + "'>" + getFileType(a.name) + "</span></td>" +
+        "<td class='size'>" + formatSize(a.size) + "</td>" +
+        "<td class='hash'><code class='file-hash' " + clickable + clickTitle + ">" + hashDisplay + "</code></td>" +
+        "<td class='downloads'>" + (a.download_count || 0) + "</td>" +
+        "</tr>";
+    }
+
+    function renderTable(assets) {
+      var sorted = assets.sort(sortByName);
+      var html = '<table><thead><tr>';
+      html += "<th class='name'>" + L.file + "</th>";
+      html += "<th class='size'>" + L.size + "</th>";
+      html += "<th class='hash'>SHA256</th>";
+      html += "<th class='downloads'>" + L.downloads + "</th>";
+      html += "</tr></thead><tbody>";
+      for (var i = 0; i < sorted.length; i++) {
+        html += renderRow(sorted[i]);
+      }
+      html += "</tbody></table>";
+      return html;
+    }
+
+    function renderVersion(allReleases, tagName, digests) {
+      var release = allReleases.find(function(r) { return r.tag_name === tagName; });
+      if (!release) return "";
+
+      var assets = release.assets || [];
+
+      var byOSArch = {};
+      var ungrouped = [];
+      for (var i = 0; i < assets.length; i++) {
+        var a = assets[i];
+        var os = getOS(a.name);
+        if (!os) { ungrouped.push(a); continue; }
+        var arch = getArch(a.name);
+        var key = os + "-" + arch;
+        if (!byOSArch[key]) byOSArch[key] = { os: os, arch: arch, assets: [] };
+        byOSArch[key].assets.push(a);
+      }
+
+      var osOrder = ["linux", "darwin", "windows", "android"];
+      var archOrder = ["amd64", "arm64", "armeabi-v7a", "x86_64", "x86", "universal", "other"];
+
+      var html = "";
+
+      for (var j = 0; j < osOrder.length; j++) {
+        var osKey = osOrder[j];
+        var osData = osInfo[osKey];
+        if (!osData) continue;
+
+        var archKeys = [];
+        for (var k in byOSArch) { if (k.startsWith(osKey + "-")) archKeys.push(k); }
+        if (archKeys.length === 0) continue;
+
+        archKeys.sort(function(a, b) { return (archOrder.indexOf(a.split("-")[1]) === -1 ? 999 : archOrder.indexOf(a.split("-")[1])) - (archOrder.indexOf(b.split("-")[1]) === -1 ? 999 : archOrder.indexOf(b.split("-")[1])); });
+
+        var uniqueArches = archKeys.map(function(k) { return byOSArch[k].arch; }).sort(function(a, b) { return archOrder.indexOf(a) - archOrder.indexOf(b); });
+        var badge = uniqueArches.length > 1 ? ' <span class="arch-badge">' + uniqueArches.join(", ") + '</span>' : '';
+
+        html += '<div class="os-section"><div class="os-header"><span class="os-icon">' + osData.icon + '</span>';
+        html += '<h2>' + osData.name + (archKeys.length === 1 ? ' ' + uniqueArches[0] : badge) + '</h2>';
+        html += '</div>';
+        var allOSAssets = [];
+        for (var m = 0; m < archKeys.length; m++) allOSAssets.push.apply(allOSAssets, byOSArch[archKeys[m]].assets);
+        allOSAssets.sort(sortByName);
+        html += renderTable(allOSAssets);
+        html += '</div>';
+      }
+
+      if (ungrouped.length > 0) {
+        html += '<div class="os-section"><h2>' + L.otherFiles + '</h2>';
+        html += renderTable(ungrouped);
+        html += '</div>';
+      }
+
+      return html;
+    }
+
+    async function fetchReleases() {
+      try {
+        var resp = await fetch("https://api.github.com/repos/" + repoOwner + "/torrplay/releases?per_page=100");
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        var allReleases = await resp.json();
+
+        if (!allReleases.length) {
+          document.getElementById("downloads-tables").textContent = L.noReleases;
+          return;
+        }
+
+        for (var i = 0; i < allReleases.length; i++) {
+          var relAssets = allReleases[i].assets || [];
+          for (var j = 0; j < relAssets.length; j++) {
+            if (relAssets[j].digest) digests[relAssets[j].name] = relAssets[j].digest;
+          }
+        }
+
+        var versions = allReleases.map(function(r) { return r.tag_name; });
+        var versionsEl = document.getElementById("downloads-selector");
+        var tablesEl = document.getElementById("downloads-tables");
+        var wrapper;
+        var selector;
+
+        if (versions.length > 1) {
+          wrapper = document.createElement("div");
+          wrapper.className = "version-wrapper";
+          versionsEl.appendChild(wrapper);
+          selector = document.createElement("select");
+          selector.className = "version-select";
+
+          for (var i = 0; i < versions.length; i++) {
+            var opt = document.createElement("option");
+            opt.value = versions[i];
+            opt.textContent = versions[i];
+            if (i === 0) opt.selected = true;
+            selector.appendChild(opt);
+          }
+          wrapper.appendChild(selector);
+        }
+
+        function buildUI(tagName) {
+          tablesEl.innerHTML = renderVersion(allReleases, tagName, digests);
+        }
+
+        buildUI(versions[0]);
+
+        if (selector) {
+          selector.addEventListener("change", function() {
+            buildUI(this.value);
+          });
+        }
+      } catch (err) {
+        document.getElementById("downloads-tables").innerHTML = "<div class='error'>" + L.loadFailed + err.message + "</div>";
+      }
+    }
+    fetchReleases();
+  })();
+</script>
+{{ end }}

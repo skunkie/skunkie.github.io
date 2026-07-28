@@ -1,0 +1,61 @@
+{{/*
+SPDX-FileCopyrightText: 2026 TorrPlay
+
+SPDX-License-Identifier: MIT
+*/}}
+
+{{- /* remove whitespaces */ -}}
+<pre class="mermaid">{{ .Inner | htmlEscape | safeHTML -}}</pre>
+{{- if not (.Page.Store.Get "mermaid") -}}
+  {{- /* Include mermaid only first time */ -}}
+  <script src="{{ "mermaid.min.js" | relURL }}"></script>
+  {{- with resources.Get "mermaid.json" | minify -}}
+    <script>
+  (function() {
+    var config = {{ .Content | safeJS }};
+    function isDark() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    function getThemeVars() {
+      var bg = isDark() ? '#1a1e24' : '#f8f9fa';
+      var border = isDark() ? '#535d6a' : '#c6cdd5';
+      var text = isDark() ? '#cbccc6' : '#575f66';
+      var line = isDark() ? '#535d6a' : '#c3c7cf';
+      return {
+        primaryColor: bg,
+        primaryBorderColor: border,
+        primaryTextColor: text,
+        lineColor: line,
+        secondaryColor: bg,
+        tertiaryColor: bg,
+        noteBkgColor: bg,
+        noteTextColor: text,
+        noteBkgBorderColor: border,
+        actorBkg: bg,
+        actorBorder: border,
+        actorTextColor: text,
+        activationBkgColor: bg,
+        activationBorderColor: border,
+        signalColor: text,
+        signalTextColor: text,
+        labelBoxBkgColor: bg,
+        labelBoxBorderColor: border,
+        labelTextColor: text,
+        loopTextColor: text,
+        actorLineColor: line
+      };
+    }
+    config.themeVariables = getThemeVars();
+    mermaid.initialize(config);
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+      config.themeVariables = getThemeVars();
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        el.removeAttribute('data-processed');
+      });
+      mermaid.init(config, '.mermaid');
+    });
+  })();
+  </script>
+  {{- end -}}
+  {{- .Page.Store.Set "mermaid" true -}}
+{{- end -}}

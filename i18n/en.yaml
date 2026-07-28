@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 TorrPlay
+#
+# SPDX-License-Identifier: MIT
+
+- id: "downloadsCol"
+  translation: "Downloads"
+
+- id: "file"
+  translation: "File"
+
+- id: "loadFailed"
+  translation: "Failed to load: "
+
+- id: "noReleases"
+  translation: "No releases yet."
+
+- id: "otherFiles"
+  translation: "Other files"
+
+- id: "size"
+  translation: "Size"
