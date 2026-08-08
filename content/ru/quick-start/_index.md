@@ -28,7 +28,7 @@ SPDX-License-Identifier: MIT
   <a href="/ru/quick-start/running-with-docker" class="docs-card">
     <div class="docs-card-header">
       <div class="docs-card-icon">🐳</div>
-      <h3 class="docs-card-title">Запуск с Docker</h3>
+      <h3 class="docs-card-title">Запуск в Docker</h3>
     </div>
     <p class="docs-card-desc">Разверните TorrPlay в контейнере с помощью Docker CLI или Docker Compose.</p>
   </a>

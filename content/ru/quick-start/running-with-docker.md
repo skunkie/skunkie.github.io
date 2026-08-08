@@ -1,5 +1,5 @@
 ---
-title: Запуск с Docker
+title: Запуск в Docker
 weight: 2
 bookIcon: server
 ---
@@ -10,9 +10,9 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Запуск с Docker
+# Запуск в Docker
 
-Данное руководство описывает запуск TorrPlay с Docker и Docker Compose.
+Данное руководство описывает запуск TorrPlay с помощью Docker и Docker Compose.
 
 ---
 
@@ -47,7 +47,7 @@ docker run -d \
 
 ---
 
-## Запуск с Docker Compose
+## Запуск с помощью Docker Compose
 
 Файл `docker-compose.yml` есть в корневой директории проекта:
 
