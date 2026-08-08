@@ -59,6 +59,9 @@ On macOS, the desktop client app (`.dmg` / `.app`) uses a **Tauri Sidecar** arch
 > [!NOTE]
 > macOS Gatekeeper may block the unsigned app. To unblock, run `xattr -c /Applications/TorrPlay.app` in Terminal, then right-click → **Open**.
 
+> [!TIP]
+> **macOS web view limitation:** WKWebView in Tauri blocks HTTP traffic due to App Transport Security. To play video, select a player (VLC, IINA, etc.) in Tauri settings: External Player → Player Name. The player must be installed on your system.
+
 ### Android
 
 | Package Type         | File Extension | Details                                                                                                                                                           |
