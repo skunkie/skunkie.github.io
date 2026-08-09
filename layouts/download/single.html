@@ -11,7 +11,7 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page h1 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .downloads-page .error {
@@ -75,7 +75,7 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page .os-section {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   .downloads-page .os-header {
@@ -145,7 +145,7 @@ SPDX-License-Identifier: MIT
     background: var(--body-background);
     color: var(--body-font-color);
     cursor: pointer;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     outline: none;
   }
 
@@ -162,7 +162,114 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page .version-wrapper {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  .downloads-page .release-notes-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--body-font-color);
+    padding: 0.4rem 0;
+    margin-bottom: 1rem;
+    border: none;
+    background: none;
+    text-align: left;
+    width: 100%;
+    outline: none;
+  }
+
+  .downloads-page .release-notes-toggle:hover {
+    color: var(--color-link, #2563eb);
+  }
+
+  .downloads-page .release-notes-toggle .chevron {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .downloads-page .release-notes-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(90deg);
+  }
+
+  .downloads-page .release-notes-body {
+    display: none;
+    padding: 0.75rem 1rem;
+    background: var(--gray-100, rgba(128, 128, 128, 0.08));
+    border-radius: var(--border-radius, 6px);
+    border: 1px solid var(--gray-200, rgba(128, 128, 128, 0.2));
+    margin-bottom: 1rem;
+    overflow-x: auto;
+  }
+
+  .downloads-page .release-notes-body.open {
+    display: block;
+  }
+
+  .downloads-page .release-notes-body h1,
+  .downloads-page .release-notes-body h2,
+  .downloads-page .release-notes-body h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .downloads-page .release-notes-body h1:first-child,
+  .downloads-page .release-notes-body h2:first-child,
+  .downloads-page .release-notes-body h3:first-child {
+    margin-top: 0;
+  }
+
+  .downloads-page .release-notes-body p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+
+  .downloads-page .release-notes-body ul,
+  .downloads-page .release-notes-body ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .downloads-page .release-notes-body li {
+    margin: 0.25rem 0;
+  }
+
+  .downloads-page .release-notes-body a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  .downloads-page .release-notes-body a:hover {
+    text-decoration: underline;
+  }
+
+  .downloads-page .release-notes-body code {
+    background: var(--gray-200, rgba(128, 128, 128, 0.2));
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.85em;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .downloads-page .release-notes-body pre {
+    background: var(--gray-100, rgba(128, 128, 128, 0.1));
+    padding: 0.75rem;
+    border-radius: var(--border-radius, 6px);
+    overflow-x: auto;
+    margin: 0.75rem 0;
+  }
+
+  .downloads-page .release-notes-body pre code {
+    background: none;
+    padding: 0;
   }
 
   /* Mobile responsive */
@@ -200,7 +307,7 @@ SPDX-License-Identifier: MIT
     }
 
     .downloads-page .os-section {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
 
     .downloads-page .os-header h2 {
@@ -236,6 +343,16 @@ SPDX-License-Identifier: MIT
       width: 100%;
       font-size: 16px;
       padding: 0.5rem 0.75rem;
+    }
+
+    .downloads-page .release-notes-toggle {
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+    }
+
+    .downloads-page .release-notes-body {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
     }
 
     .downloads-page .error {
@@ -279,6 +396,15 @@ SPDX-License-Identifier: MIT
     .downloads-page .version-select {
       font-size: 16px;
     }
+
+    .downloads-page .release-notes-toggle {
+      font-size: 0.8rem;
+    }
+
+    .downloads-page .release-notes-body {
+      padding: 0.4rem 0.5rem;
+      font-size: 0.8rem;
+    }
   }
 </style>
 <div class="downloads-page">
@@ -287,7 +413,30 @@ SPDX-License-Identifier: MIT
     <div id="downloads-selector"></div>
     <div id="downloads-tables"></div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    if (typeof marked !== 'undefined') {
+      marked.setOptions({
+        breaks: true,
+        gfm: true,
+        headerIds: false,
+        mangle: false,
+      });
+    }
+  </script>
 </div>
+<script>
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.release-notes-toggle');
+    if (!btn) return;
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    var body = btn.nextElementSibling;
+    if (body && body.classList.contains('release-notes-body')) {
+      body.classList.toggle('open');
+    }
+  });
+</script>
 <script>
   (function() {
     var repoOwner = "{{ site.Params.Repo.Owner }}";
@@ -298,6 +447,7 @@ SPDX-License-Identifier: MIT
       noReleases:  "{{ i18n "noReleases" }}",
       otherFiles:  "{{ i18n "otherFiles" }}",
       loadFailed:  "{{ i18n "loadFailed" }}",
+      releaseNotes:"{{ i18n "releaseNotes" }}",
     };
 
     var sizeNames = ["B", "KB", "MB", "GB"];
@@ -421,6 +571,31 @@ SPDX-License-Identifier: MIT
       var archOrder = ["amd64", "arm64", "armeabi-v7a", "x86_64", "x86", "universal", "other"];
 
       var html = "";
+
+      if (release.body && release.body.trim()) {
+        var notesId = "notes-" + tagName.replace(/[^a-zA-Z0-9]/g, "-");
+        html += '<button class="release-notes-toggle" aria-expanded="false">';
+        html += '<svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+        html += L.releaseNotes;
+        html += '</button>';
+        html += '<div class="release-notes-body" id="' + notesId + '">';
+        if (typeof marked !== 'undefined') {
+          var rawHtml = marked.parse(release.body);
+          var dom = new DOMParser().parseFromString(rawHtml, 'text/html');
+          var unsafe = dom.body.querySelectorAll('[onclick], [onerror], [onload], [onmouseover], [style]');
+          for (var u = 0; u < unsafe.length; u++) {
+            unsafe[u].removeAttribute('onclick');
+            unsafe[u].removeAttribute('onerror');
+            unsafe[u].removeAttribute('onload');
+            unsafe[u].removeAttribute('onmouseover');
+            unsafe[u].removeAttribute('style');
+          }
+          html += dom.body.innerHTML;
+        } else {
+          html += '<pre><code>' + release.body.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code></pre>';
+        }
+        html += '</div>';
+      }
 
       for (var j = 0; j < osOrder.length; j++) {
         var osKey = osOrder[j];

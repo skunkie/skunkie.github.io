@@ -17,5 +17,8 @@
 - id: "otherFiles"
   translation: "Другие файлы"
 
+- id: "releaseNotes"
+  translation: "Примечания к выпуску"
+
 - id: "size"
   translation: "Размер"

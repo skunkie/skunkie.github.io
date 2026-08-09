@@ -17,5 +17,8 @@
 - id: "otherFiles"
   translation: "Other files"
 
+- id: "releaseNotes"
+  translation: "Release Notes"
+
 - id: "size"
   translation: "Size"
