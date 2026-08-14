@@ -1,0 +1,23 @@
+{{/*
+SPDX-FileCopyrightText: 2026 TorrPlay
+
+SPDX-License-Identifier: MIT
+*/}}
+
+<div class="book-brand-wrapper">
+  <h2 class="book-brand">
+    <a class="flex align-center" href="{{ partial "docs/links/home" . }}">
+      {{- with .Site.Params.BookLogo -}}
+      <img src="{{ . | relURL }}" alt="{{ partial "docs/text/i18n" "Logo" }}" />
+      {{- end -}}
+      <span>{{ .Site.Title }}</span>
+    </a>
+  </h2>
+
+  <div class="theme-toggle-inline">
+    <button type="button" class="theme-toggle-btn" id="theme-toggle-inline-btn" title="Switch Theme" aria-label="Switch Theme">
+      <img src="{{ partial "docs/icon" "sun" }}" class="book-icon icon-sun" alt="Light mode" />
+      <img src="{{ partial "docs/icon" "moon" }}" class="book-icon icon-moon" alt="Dark mode" />
+    </button>
+  </div>
+</div>

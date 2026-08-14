@@ -6,3 +6,40 @@ SPDX-License-Identifier: MIT
 
 {{- $script := resources.Get "copy-button.js" | resources.Minify | resources.Fingerprint -}}
 <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous"></script>
+
+<script>
+  (function () {
+    const STORAGE_KEY = 'theme';
+
+    function getActiveTheme() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light') return saved;
+      return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const buttons = document.querySelectorAll('.theme-toggle-btn');
+      buttons.forEach(function (btn) {
+        btn.setAttribute('data-current-theme', theme);
+        if (theme === 'light') {
+          btn.setAttribute('title', 'Switch to Dark mode');
+        } else {
+          btn.setAttribute('title', 'Switch to Light mode');
+        }
+      });
+    }
+
+    const current = getActiveTheme();
+    applyTheme(current);
+
+    document.querySelectorAll('.theme-toggle-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const active = document.documentElement.getAttribute('data-theme') || getActiveTheme();
+        const next = active === 'dark' ? 'light' : 'dark';
+        localStorage.setItem(STORAGE_KEY, next);
+        applyTheme(next);
+      });
+    });
+  })();
+</script>

@@ -34,6 +34,60 @@
   @include accent("danger", hsl(0, 90.6%, 70.8%));
 }
 
+:root[data-theme="light"] {
+  @include theme-ayu-light;
+}
+
+:root[data-theme="dark"] {
+  @include theme-ayu-dark;
+}
+
+/* Brand Title & Inline Theme Toggle */
+.book-brand-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  .book-brand {
+    margin: 0;
+  }
+
+  .theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    border: 1px solid var(--gray-200);
+    background: transparent;
+    color: var(--body-font-color);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      background: var(--gray-100);
+      border-color: var(--color-link);
+      transform: translateY(-1px);
+    }
+
+    .book-icon {
+      display: none;
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &[data-current-theme="light"] .icon-sun {
+      display: block;
+    }
+
+    &[data-current-theme="dark"] .icon-moon {
+      display: block;
+    }
+  }
+}
+
 /* Documentation Card Grid */
 .docs-card-grid {
   display: grid;
@@ -97,32 +151,6 @@
   flex: 1;
 }
 
-@media (prefers-color-scheme: dark) {
-  .docs-card-grid .docs-card {
-    border-color: var(--gray-200);
-    background-color: var(--gray-100);
-  }
-
-  .docs-card-grid .docs-card:hover {
-    border-color: var(--color-link);
-    box-shadow: 0 4px 12px hsla(214.7, 10.6%, 64.9%, 0.15);
-  }
-
-  .docs-card-grid .docs-card-icon {
-    background: hsla(214.7, 10.6%, 64.9%, 0.15);
-    color: var(--color-link);
-  }
-
-  .code-block-container .copy-button {
-    background: hsla(0, 0%, 100%, 0.1);
-  }
-
-  .code-block-container .copy-button:hover {
-    background: hsla(214.7, 10.6%, 64.9%, 0.3);
-    color: var(--body-font-color);
-  }
-}
-
 /* Mermaid Diagram Layout */
 .mermaid {
   text-align: center;
@@ -159,7 +187,7 @@
 
     &:hover {
       background: var(--gray-500);
-      color: var(--body-font-color);
+      color: #ffffff;
     }
 
     svg {
@@ -175,6 +203,47 @@
   .copy-button.copied {
     opacity: 1;
     background: var(--gray-500);
-    color: var(--body-font-color);
+    color: #ffffff;
   }
+}
+
+@mixin dark-component-styles {
+  .docs-card-grid .docs-card {
+    border-color: var(--gray-200);
+    background-color: var(--gray-100);
+  }
+
+  .docs-card-grid .docs-card:hover {
+    border-color: var(--color-link);
+    box-shadow: 0 4px 12px hsla(214.7, 10.6%, 64.9%, 0.15);
+  }
+
+  .docs-card-grid .docs-card-icon {
+    background: hsla(214.7, 10.6%, 64.9%, 0.15);
+    color: var(--color-link);
+  }
+
+  .code-block-container .copy-button {
+    background: hsla(0, 0%, 100%, 0.1);
+
+    &:hover {
+      background: hsla(214.7, 10.6%, 64.9%, 0.3);
+      color: #ffffff;
+    }
+
+    &.copied {
+      background: var(--gray-500);
+      color: #ffffff;
+    }
+  }
+}
+
+html:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    @include dark-component-styles;
+  }
+}
+
+html[data-theme="dark"] {
+  @include dark-component-styles;
 }
