@@ -6,6 +6,34 @@
 
 @import "plugins/themes";
 
+@mixin theme-ayu-dark { // TorrPlay client dark theme (shadcn)
+  --body-background: hsl(226.7, 14.8%, 12.0%);
+  --body-background-tint: none;
+
+  --body-font-color: hsl(240, 5.3%, 96.3%);
+
+  --color-link: hsl(214.6, 67.5%, 54.1%);
+  --color-visited-link: hsl(215, 56%, 35%);
+
+  --icon-filter: brightness(0) invert(1);
+
+  --gray-100: hsl(229.1, 12.6%, 17.1%);
+  --gray-200: hsl(222.2, 24.3%, 21.8%);
+  --gray-500: hsl(214.7, 10.6%, 64.9%);
+
+  @include accent("default", hsl(214.7, 10.6%, 64.9%));
+  @include accent("note", hsl(214.6, 67.5%, 54.1%));
+  @include accent("tip", hsl(141.9, 69.2%, 58.0%));
+  @include accent("important", hsl(234.5, 89.5%, 73.9%));
+  @include accent("warning", hsl(43.3, 96.4%, 56.3%));
+  @include accent("caution", hsl(0, 90.6%, 70.8%));
+
+  // Fallback for {{< hint >}} shortcodes
+  @include accent("info", hsl(214.6, 67.5%, 54.1%));
+  @include accent("success", hsl(141.9, 69.2%, 58.0%));
+  @include accent("danger", hsl(0, 90.6%, 70.8%));
+}
+
 /* Documentation Card Grid */
 .docs-card-grid {
   display: grid;
@@ -19,9 +47,9 @@
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
-  border: 1px solid var(--gray-200, #e5e7eb);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
-  background-color: var(--body-background, #ffffff);
+  background-color: var(--body-background);
   text-decoration: none !important;
   color: inherit !important;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -30,7 +58,7 @@
 
 .docs-card-grid .docs-card:hover {
   transform: translateY(-2px);
-  border-color: var(--color-link, #3b82f6);
+  border-color: var(--color-link);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -49,8 +77,8 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 6px;
-  background: var(--color-accent-note-tint, rgba(59, 130, 246, 0.1));
-  color: var(--color-link, #2563eb);
+  background: var(--color-accent-note-tint);
+  color: var(--color-link);
   flex-shrink: 0;
 }
 
@@ -58,43 +86,41 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
-  color: var(--body-font-color, #111827);
+  color: var(--body-font-color);
 }
 
 .docs-card-grid .docs-card-desc {
   font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--gray-500);
   line-height: 1.5;
   margin: 0;
   flex: 1;
 }
 
 @media (prefers-color-scheme: dark) {
-  .docs-card-grid .docs-card-desc {
-    color: rgba(255, 255, 255, 0.55);
+  .docs-card-grid .docs-card {
+    border-color: var(--gray-200);
+    background-color: var(--gray-100);
   }
-}
 
-/* Page Navigation Footer */
-.docs-page-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--gray-200, #e5e7eb);
-}
+  .docs-card-grid .docs-card:hover {
+    border-color: var(--color-link);
+    box-shadow: 0 4px 12px hsla(214.7, 10.6%, 64.9%, 0.15);
+  }
 
-.docs-page-nav a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
-  text-decoration: none;
-}
+  .docs-card-grid .docs-card-icon {
+    background: hsla(214.7, 10.6%, 64.9%, 0.15);
+    color: var(--color-link);
+  }
 
-.docs-page-nav a:hover {
-  text-decoration: underline;
+  .code-block-container .copy-button {
+    background: hsla(0, 0%, 100%, 0.1);
+  }
+
+  .code-block-container .copy-button:hover {
+    background: hsla(214.7, 10.6%, 64.9%, 0.3);
+    color: var(--body-font-color);
+  }
 }
 
 /* Mermaid Diagram Layout */
@@ -117,7 +143,7 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: var(--gray-200, #d0d0d0);
+    background: var(--gray-200);
     border: none;
     border-radius: 4px;
     padding: 0.35rem 0.5rem;
@@ -128,12 +154,12 @@
     align-items: center;
     gap: 0.3rem;
     font-size: 0.75rem;
-    color: var(--body-font-color, #000000);
+    color: var(--body-font-color);
     line-height: 1;
 
     &:hover {
-      background: var(--gray-500, #707070);
-      color: #ffffff;
+      background: var(--gray-500);
+      color: var(--body-font-color);
     }
 
     svg {
@@ -149,17 +175,6 @@
   .copy-button.copied {
     opacity: 1;
     background: var(--gray-500);
-    color: #ffffff;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .code-block-container .copy-button {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .code-block-container .copy-button:hover {
-    background: rgba(255, 255, 255, 0.25);
-    color: #ffffff;
+    color: var(--body-font-color);
   }
 }

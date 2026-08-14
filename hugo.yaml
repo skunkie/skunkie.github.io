@@ -30,7 +30,7 @@ params:
   BookFavicon: "favicon.png"
   BookLogo: "logo.png"
 
-  BookRepo: "https://github.com/torrplay/torrplay"
+  BookRepo: "https://github.com/torrplay/torrplay.github.io"
   BookLastChangeLink: "{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}"
   BookEditLink: "{{ .Site.Params.BookRepo }}/edit/main/{{ .Path }}"
   BookSearch: true

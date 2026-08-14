@@ -16,10 +16,10 @@ SPDX-License-Identifier: MIT
 
   .downloads-page .error {
     padding: 1rem;
-    background: var(--color-accent-caution-tint, rgba(239, 68, 68, 0.1));
-    border: 1px solid var(--color-accent-caution, #ef4444);
-    border-radius: var(--border-radius, 6px);
-    color: var(--color-accent-caution, #ef4444);
+    background: var(--color-accent-caution-tint);
+    border: 1px solid var(--color-accent-caution);
+    border-radius: var(--border-radius);
+    color: var(--color-accent-caution);
   }
 
   .downloads-page table {
@@ -33,11 +33,11 @@ SPDX-License-Identifier: MIT
   .downloads-page th, .downloads-page td {
     text-align: left;
     padding: 0.6rem 0.75rem;
-    border-bottom: 1px solid var(--gray-200, rgba(128, 128, 128, 0.2));
+    border-bottom: 1px solid var(--gray-200);
   }
 
   .downloads-page th {
-    background: var(--gray-100, rgba(128, 128, 128, 0.08));
+    background: var(--gray-100);
     font-weight: 600;
     white-space: nowrap;
     color: var(--body-font-color);
@@ -59,19 +59,19 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page .file-hash {
-    background: var(--gray-100, rgba(128, 128, 128, 0.1));
+    background: var(--gray-100);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     font-size: 0.75rem;
     font-family: var(--font-mono, monospace);
     user-select: all;
     color: inherit;
-    border: 1px solid var(--gray-200, rgba(128, 128, 128, 0.2));
+    border: 1px solid var(--gray-200);
     transition: background-color 0.15s ease;
   }
 
   .downloads-page .file-hash:hover {
-    background: var(--gray-200, rgba(128, 128, 128, 0.2));
+    background: var(--gray-200);
   }
 
   .downloads-page .os-section {
@@ -103,8 +103,8 @@ SPDX-License-Identifier: MIT
 
   .downloads-page .arch-badge {
     display: inline-block;
-    background: var(--color-accent-note-tint, rgba(59, 130, 246, 0.15));
-    color: var(--color-link, #2563eb);
+    background: var(--color-accent-note-tint);
+    color: var(--color-link);
     padding: 0.15rem 0.5rem;
     border-radius: 20px;
     font-size: 0.75rem;
@@ -127,18 +127,9 @@ SPDX-License-Identifier: MIT
     font-family: var(--font-mono, monospace);
   }
 
-  .downloads-page .type-badge.package { background: var(--color-accent-note-tint); color: var(--color-accent-note); border: 1px solid transparent; }
-  .downloads-page .type-badge.installer { background: var(--color-accent-tip-tint); color: var(--color-accent-tip); border: 1px solid transparent; }
-  .downloads-page .type-badge.apk { background: var(--color-accent-warning-tint); color: var(--color-accent-warning); border: 1px solid transparent; }
-  .downloads-page .type-badge.aar { background: var(--color-accent-default-tint); color: var(--color-accent-default); border: 1px solid transparent; }
-  .downloads-page .type-badge.binary { background: var(--color-accent-important-tint); color: var(--color-accent-important); border: 1px solid transparent; }
-  .downloads-page .type-badge.appimage { background: var(--color-accent-note-tint); color: var(--color-accent-note); border: 1px solid transparent; }
-  .downloads-page .type-badge.archive { background: var(--color-accent-warning-tint); color: var(--color-accent-warning); border: 1px solid transparent; }
-  .downloads-page .type-badge.source { background: var(--color-accent-default-tint); color: var(--color-accent-default); border: 1px solid transparent; }
-
   .downloads-page .version-select {
     padding: 0.4rem 0.8rem;
-    border: 1px solid var(--gray-200, rgba(128, 128, 128, 0.3));
+    border: 1px solid var(--gray-200);
     border-radius: var(--border-radius, 6px);
     font-size: 0.9rem;
     font-family: inherit;
@@ -184,7 +175,7 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page .release-notes-toggle:hover {
-    color: var(--color-link, #2563eb);
+    color: var(--color-link);
   }
 
   .downloads-page .release-notes-toggle .chevron {
@@ -203,9 +194,9 @@ SPDX-License-Identifier: MIT
   .downloads-page .release-notes-body {
     display: none;
     padding: 0.75rem 1rem;
-    background: var(--gray-100, rgba(128, 128, 128, 0.08));
-    border-radius: var(--border-radius, 6px);
-    border: 1px solid var(--gray-200, rgba(128, 128, 128, 0.2));
+    background: var(--gray-100);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-200);
     margin-bottom: 1rem;
     overflow-x: auto;
   }
@@ -252,7 +243,7 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page .release-notes-body code {
-    background: var(--gray-200, rgba(128, 128, 128, 0.2));
+    background: var(--gray-200);
     padding: 0.1rem 0.3rem;
     border-radius: 3px;
     font-size: 0.85em;
@@ -260,7 +251,7 @@ SPDX-License-Identifier: MIT
   }
 
   .downloads-page .release-notes-body pre {
-    background: var(--gray-100, rgba(128, 128, 128, 0.1));
+    background: var(--gray-100);
     padding: 0.75rem;
     border-radius: var(--border-radius, 6px);
     overflow-x: auto;
@@ -441,13 +432,13 @@ SPDX-License-Identifier: MIT
   (function() {
     var repoOwner = "{{ site.Params.Repo.Owner }}";
     var L = {
-      file:         "{{ i18n "file" }}",
-      size:        "{{ i18n "size" }}",
-      downloads:   "{{ i18n "downloadsCol" }}",
-      noReleases:  "{{ i18n "noReleases" }}",
-      otherFiles:  "{{ i18n "otherFiles" }}",
-      loadFailed:  "{{ i18n "loadFailed" }}",
-      releaseNotes:"{{ i18n "releaseNotes" }}",
+      file:          "{{ i18n "file" }}",
+      size:         "{{ i18n "size" }}",
+      downloads:    "{{ i18n "downloadsCol" }}",
+      noReleases:   "{{ i18n "noReleases" }}",
+      otherFiles:   "{{ i18n "otherFiles" }}",
+      loadFailed:   "{{ i18n "loadFailed" }}",
+      releaseNotes: "{{ i18n "releaseNotes" }}",
     };
 
     var sizeNames = ["B", "KB", "MB", "GB"];
