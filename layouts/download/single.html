@@ -475,7 +475,7 @@ SPDX-License-Identifier: MIT
       if (f.includes("linux")) return "linux";
       if (f.includes("windows") || f.includes("nsis")) return "windows";
       if (f.includes("android")) return "android";
-      if (f.includes(".aar")) return null;
+      if (f.includes(".aar") || f.includes(".jar")) return null;
       if (f.includes(".dmg") || f.includes("macos") || f.includes("aarch64-apple") || f.includes("x86_64-apple")) return "darwin";
       if (f.includes(".msi") || f.includes(".exe") || f.includes("setup")) return "windows";
       if (f.includes(".apk")) return "android";
