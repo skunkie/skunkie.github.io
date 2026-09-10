@@ -22,8 +22,8 @@ hugo
 hugo server
 ```
 
-Requires Hugo extended v0.164.0+.
+Requires Hugo extended v0.166.0+.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+[MIT](LICENSE)
