@@ -11,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 TorrPlay provides backup and restore endpoints for exporting and importing your entire torrent library — including metadata, categories, poster images, and torrent info hashes — across instances or before upgrades.
 
 ---

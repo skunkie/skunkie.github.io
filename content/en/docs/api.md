@@ -11,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 TorrPlay provides a comprehensive RESTful API for programmatic control. The full OpenAPI specification is available at [`api/api.yaml`](https://github.com/torrplay/torrplay/blob/main/api/api.yaml).
 
 You can also interact with the API documentation using **[Scalar](/openapi/)**.
@@ -28,26 +27,41 @@ http://localhost:8090
 
 ### Authentication
 
-| Method | Endpoint       | Description        |
-| ------ | -------------- | ------------------ |
-| `POST` | `/oauth/token` | Obtain a JWT token |
+| Method | Endpoint         | Description                            |
+| ------ | ---------------- | -------------------------------------- |
+| `POST` | `/oauth/token`   | Obtain a JWT admin token (Bearer auth) |
+| `POST` | `/api/v1/tokens` | Create a scoped playback token         |
 
 ### Core API
 
-| Method   | Endpoint                   | Description                        |
-| -------- | -------------------------- | ---------------------------------- |
-| `GET`    | `/api/v1/torrents`         | List all torrents                  |
-| `POST`   | `/api/v1/torrents`         | Add a new torrent                  |
-| `GET`    | `/api/v1/torrents/{hash}`  | Get torrent metadata               |
-| `PATCH`  | `/api/v1/torrents/{hash}`  | Update torrent metadata            |
-| `DELETE` | `/api/v1/torrents/{hash}`  | Delete a torrent                   |
-| `GET`    | `/api/v1/torrents/backup`  | Backup torrents and posters        |
-| `POST`   | `/api/v1/torrents/restore` | Restore torrents and posters       |
-| `GET`    | `/api/v1/stream/{hash}`    | Stream a torrent file              |
-| `HEAD`   | `/api/v1/stream/{hash}`    | HEAD request for a streamable file |
-| `GET`    | `/api/v1/playlist`         | Generate a playlist for streaming  |
-| `GET`    | `/api/v1/settings`         | Get application settings           |
-| `PATCH`  | `/api/v1/settings`         | Update application settings        |
+| Method   | Endpoint                          | Description                            |
+| -------- | --------------------------------- | -------------------------------------- |
+| `GET`    | `/api/v1/torrents`                | List all torrents                      |
+| `POST`   | `/api/v1/torrents`                | Add a new torrent                      |
+| `GET`    | `/api/v1/torrents/{hash}`         | Get torrent metadata                   |
+| `PATCH`  | `/api/v1/torrents/{hash}`         | Update torrent metadata                |
+| `DELETE` | `/api/v1/torrents/{hash}`         | Delete a torrent                       |
+| `PUT`    | `/api/v1/torrents/{hash}/preload` | Start or update torrent preloading     |
+| `GET`    | `/api/v1/torrents/{hash}/preload` | Get torrent preload status and buffer  |
+| `DELETE` | `/api/v1/torrents/{hash}/preload` | Cancel active torrent preload          |
+| `GET`    | `/api/v1/torrents/backup`         | Backup torrents and posters            |
+| `POST`   | `/api/v1/torrents/restore`        | Restore torrents and posters           |
+| `GET`    | `/api/v1/stream/{hash}`           | Stream a torrent file                  |
+| `HEAD`   | `/api/v1/stream/{hash}`           | HEAD request for a streamable file     |
+| `GET`    | `/api/v1/playlist`                | Generate an M3U playlist for streaming |
+| `GET`    | `/api/v1/settings`                | Get application settings               |
+| `PATCH`  | `/api/v1/settings`                | Update application settings            |
+
+### Stremio Addon Protocol
+
+| Method | Endpoint                                    | Description                                    |
+| ------ | ------------------------------------------- | ---------------------------------------------- |
+| `GET`  | `/stremio/manifest.json`                    | Addon manifest descriptor                      |
+| `GET`  | `/stremio/{token}/manifest.json`            | Authenticated addon manifest descriptor        |
+| `GET`  | `/stremio/catalog/{type}/{id}.json`         | Browse movies or series catalog                |
+| `GET`  | `/stremio/meta/{type}/{id}.json`            | Retrieve item details and season/episode lists |
+| `GET`  | `/stremio/stream/{type}/{id}.json`          | Fetch stream playback links                    |
+| `GET`  | `/stremio/play/{hash}/{fileIdx}/{filename}` | Direct media stream handler                    |
 
 ### Statistics
 
@@ -89,13 +103,19 @@ http://localhost:8090
 
 Stream files from a torrent using the hash and URL-encoded file path:
 
-```
+```text
 http://localhost:8090/api/v1/stream/{hash}?path={url_encoded_path}
+```
+
+If authentication is enabled, append a scoped playback token:
+
+```text
+http://localhost:8090/api/v1/stream/{hash}?path={url_encoded_path}&token={playback_token}
 ```
 
 Example:
 
-```
+```text
 http://localhost:8090/api/v1/stream/dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c?path=Big.Buck.Bunny.1080p.mp4
 ```
 
@@ -105,10 +125,10 @@ When authentication is enabled, include credentials with each request. See [Auth
 
 ### Basic Auth
 
-Send username and password with each request. Stream endpoints remain unauthenticated.
+Send username and password with each request:
 
 ```sh
-curl -u admin:password http://localhost:8090/api/v1/torrents
+curl -u your-username:your-password http://localhost:8090/api/v1/torrents
 ```
 
 ### Bearer Token
@@ -124,7 +144,7 @@ curl -H "Authorization: Bearer your-jwt-token" http://localhost:8090/api/v1/torr
 ```sh
 curl -X POST http://localhost:8090/oauth/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=password&username=admin&password=your-password"
+  -d "grant_type=password&username=your-username&password=your-password"
 ```
 
 ## Example: Adding a Torrent

@@ -11,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 ## Playlist API
 
 **Endpoint:** `GET /api/v1/playlist`
@@ -56,13 +55,13 @@ curl -o torrplay.m3u http://localhost:8090/api/v1/playlist
 
 ### Authentication & Media Player Compatibility
 
-| Auth Mode | Stream Endpoint Access | Notes                                                                                       |
-| --------- | ---------------------- | ------------------------------------------------------------------------------------------- |
-| None      | Unauthenticated        | No credentials required                                                                     |
-| Basic     | Unauthenticated        | Stream URLs work in all players without credentials                                         |
-| Bearer    | Session cookie         | Streaming is protected; browser players use the `HttpOnly` session cookie obtained at login |
+When authentication is enabled on your TorrPlay instance, supply a scoped playback token to fetch the playlist:
 
-When using **Bearer** authentication, streaming endpoints are accessible via the session cookie set during login. When using **Basic** authentication, stream endpoints are intentionally unauthenticated, ensuring compatibility with all media players.
+```sh
+vlc "http://localhost:8090/api/v1/playlist?token=tp_play_9f8a3c2e1b..."
+```
+
+When you request `/api/v1/playlist?token=...`, TorrPlay automatically embeds the token into each individual stream URL in the resulting M3U output. Media players can seamlessly access all video files without requiring manual login or credential prompts. See the [Authentication Guide](/docs/authentication/) for generating playback tokens.
 
 ---
 

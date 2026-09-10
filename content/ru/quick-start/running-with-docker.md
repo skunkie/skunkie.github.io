@@ -9,8 +9,7 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
-Данное руководство описывает запуск TorrPlay с помощью Docker и Docker Compose.
+Здесь описано, как развернуть TorrPlay в контейнерах с помощью Docker и Docker Compose.
 
 ---
 

@@ -11,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 All TorrPlay settings are managed through a single endpoint:
 
 ```
@@ -26,6 +25,8 @@ The request body is a JSON object. Only the fields you include are updated — o
 | ---------------------- | ---------------- | ------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `enable_dlna`          | boolean          | `false`             | —                                              | Enable the built-in DLNA media server                                                                  |
 | `enable_downloader`    | boolean          | `false`             | —                                              | Enable background downloading for file-storage torrents                                                |
+| `enable_stremio`       | boolean          | `true`              | —                                              | Enable native Stremio Addon Protocol support — see [Stremio Integration](/docs/stremio)                |
+| `cors_allowed_origins` | array of strings | `[]`                | valid URIs                                     | Additional origins allowed to access the API via CORS (loopback, Tauri, and Capacitor always trusted)  |
 | `file_storage_path`    | string           | `""`                | —                                              | Filesystem path for file-based piece storage                                                           |
 | `friendly_name`        | string           | `"TorrPlay"`        | 3–15 characters                                | DLNA server name broadcast on the local network                                                        |
 | `http_server_port`     | integer          | `8090`              | 1–65535                                        | TCP port the HTTP server listens on                                                                    |
@@ -66,19 +67,23 @@ In this example the first tier contains one tracker and the second tier contains
 
 The `torrent_client` object controls the behaviour of the underlying BitTorrent engine.
 
-| Field                           | Type              | Default | Constraints | Description                                                            |
-| ------------------------------- | ----------------- | ------- | ----------- | ---------------------------------------------------------------------- |
-| `disable_dht`                   | boolean           | `false` | —           | Disable DHT peer discovery                                             |
-| `disable_ipv6`                  | boolean           | `true`  | —           | Disable IPv6 connections                                               |
-| `disable_pex`                   | boolean           | `false` | —           | Disable Peer Exchange (PEX)                                            |
-| `disable_tcp`                   | boolean           | `false` | —           | Disable TCP connections                                                |
-| `disable_utp`                   | boolean           | `false` | —           | Disable μTP (Micro Transport Protocol)                                 |
-| `download_rate_limit`           | integer (bytes/s) | `0`     | ≥ 0         | Global download rate limit; `0` means unlimited                        |
-| `upload_rate_limit`             | integer (bytes/s) | `0`     | ≥ 0         | Global upload rate limit; `0` means unlimited                          |
-| `established_conns_per_torrent` | integer           | `50`    | ≥ 10        | Maximum number of established connections per torrent                  |
-| `torrent_peers_high_water`      | integer           | `500`   | ≥ 60        | Peer pool high-water mark per torrent                                  |
-| `prefer_header_obfuscation`     | boolean           | `false` | —           | Request BitTorrent protocol header obfuscation on outgoing connections |
-| `seed`                          | boolean           | `false` | —           | Continue seeding after a torrent is fully downloaded                   |
+| Field                                  | Type              | Default           | Constraints | Description                                                            |
+| -------------------------------------- | ----------------- | ----------------- | ----------- | ---------------------------------------------------------------------- |
+| `disable_dht`                          | boolean           | `false`           | —           | Disable DHT peer discovery                                             |
+| `disable_ipv6`                         | boolean           | `true`            | —           | Disable IPv6 connections                                               |
+| `disable_pex`                          | boolean           | `false`           | —           | Disable Peer Exchange (PEX)                                            |
+| `disable_tcp`                          | boolean           | `false`           | —           | Disable TCP connections                                                |
+| `disable_utp`                          | boolean           | `false`           | —           | Disable μTP (Micro Transport Protocol)                                 |
+| `download_rate_limit`                  | integer (bytes/s) | `0`               | ≥ 0         | Global download rate limit; `0` means unlimited                        |
+| `upload_rate_limit`                    | integer (bytes/s) | `0`               | ≥ 0         | Global upload rate limit; `0` means unlimited                          |
+| `established_conns_per_torrent`        | integer           | `50`              | ≥ 10        | Maximum number of established connections per torrent                  |
+| `half_open_conns_per_torrent`          | integer           | `25`              | ≥ 5         | Maximum number of half-open (connecting) connections per torrent       |
+| `total_half_open_conns`                | integer           | `100`             | ≥ 10        | Maximum total half-open connections across all torrents                |
+| `torrent_peers_low_water`              | integer           | `50`              | ≥ 10        | Minimum peers before attempting to discover additional peers           |
+| `torrent_peers_high_water`             | integer           | `500`             | ≥ 60        | Peer pool high-water mark per torrent                                  |
+| `max_alloc_peer_request_data_per_conn` | integer (bytes)   | `1048576` (1 MiB) | ≥ 262144    | Buffer limit per connection for peer request data to conserve memory   |
+| `prefer_header_obfuscation`            | boolean           | `false`           | —           | Request BitTorrent protocol header obfuscation on outgoing connections |
+| `seed`                                 | boolean           | `false`           | —           | Continue seeding after a torrent is fully downloaded                   |
 
 ## Example: Updating Multiple Settings
 

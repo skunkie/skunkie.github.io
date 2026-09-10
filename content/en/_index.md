@@ -9,23 +9,23 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 TorrPlay is a torrent streaming application featuring memory-managed piece storage. It lets you stream torrent content directly over HTTP without downloading the entire torrent first.
 
 ## Key Features
 
-- **HTTP Streaming** — Stream video and other files directly from a torrent
+- **HTTP Streaming & Preload** — Stream video directly from torrents with intelligent piece preloading
 - **Memory-Managed Storage** — Intelligently caches torrent pieces in RAM with LRU eviction
 - **Two Storage Backends** — In-memory (default) or file-based persistent storage
 - **Background Downloader** — Automatically download file-storage torrents in the background
-- **Web UI** — Simple interface for managing torrents
+- **Stremio Addon Protocol** — Native v3 addon integration with movie/series catalogs and episode navigation
+- **Model Context Protocol (MCP)** — Built-in AI assistant integration via stdio and SSE transports
+- **Web UI & Advanced Video Player** — Multi-audio track switching (AC-3, E-AC-3, DTS via WASM) and embedded subtitle extraction
 - **Desktop & Mobile Apps** — Native apps via Tauri (Windows, macOS, Linux) and Capacitor (Android)
-- **DLNA / UPnP Media Server** — Stream to Smart TVs and media players on your local network
-- **RESTful API** — Comprehensive API with OpenAPI spec
+- **DLNA / UPnP Media Server** — Category browsing and streaming to Smart TVs and media players on your local network
+- **RESTful API** — Comprehensive API with OpenAPI specification
 - **Prometheus Metrics** — Real-time observability via `/metrics`
-- **TorrServer Compatibility** — Compatible with TorrServer API clients
-- **qBittorrent Compatibility** — Works with Prowlarr, Sonarr, and Radarr
-- **Authentication** — Basic Auth and JWT Bearer Token support
+- **TorrServer & qBittorrent Compatibility** — Works with Kodi, TorrServe, Prowlarr, Sonarr, and Radarr
+- **Authentication & Playback Tokens** — Scoped playback delegation tokens, Basic Auth, and JWT Bearer support
 - **Backup & Restore** — Export and import your torrent library across instances
 
 ## Get Started

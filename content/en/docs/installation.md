@@ -11,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 TorrPlay provides pre-packaged installers, desktop applications, mobile packages, and standalone binaries for all major operating systems. For containerized deployments, see the [Running with Docker](/quick-start/running-with-docker/) guide.
 
 ---

@@ -9,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 This guide covers compiling TorrPlay manually from source code.
 
 ---

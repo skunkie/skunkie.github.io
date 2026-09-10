@@ -9,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 This guide covers running TorrPlay using Docker and Docker Compose.
 
 ---

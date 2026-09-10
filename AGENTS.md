@@ -37,13 +37,18 @@ When writing, updating, or maintaining documentation in this repository, follow 
 
 3. **Writing Style & Quality**:
    - **English**: Use clear, concise, and technically accurate modern American English.
-   - **Russian**: Use natural, technically accurate Russian terminology. Avoid literal machine-translation phrasing.
+   - **Russian**: The Russian documentation must sound natural, lively, and idiomatic, as if originally authored by a native technical writer or systems engineer. Avoid mechanical word-for-word translation, English grammatical calques, heavy chains of genitive cases, and passive bureaucratic phrasing ("канцелярит").
+   - **Translation Skill**: When writing, translating, or reviewing Russian documentation (`content/ru/`), follow the guidelines in [`.agents/skills/russian-technical-translation/SKILL.md`](.agents/skills/russian-technical-translation/SKILL.md).
    - Ensure consistency in terminology across all pages (e.g., streaming terms, TorrPlay settings, UI labels).
    - Translate front matter `title` and section headings into the target language.
 
 4. **UI & Template Strings**:
    - Shared UI strings belong in `i18n/en.yaml` and `i18n/ru.yaml`.
    - When introducing new UI labels or template strings, add entries to both localization files.
+
+5. **Command & Code Examples**:
+   - In command examples, shell snippets, CLI flags, curl requests, and configuration blocks, use a single consistent variant across all languages: **English**.
+   - Keep placeholders, flags, environment variables, and parameters (such as `your-username`, `your-password`, `your-jwt-token`, `<token>`, `YOUR_API_KEY`) in English across both English and Russian documentation pages. Do not translate command examples, code literals, or snippet placeholders into Russian.
 
 ## Content Formatting & Conventions
 
@@ -65,6 +70,7 @@ When writing, updating, or maintaining documentation in this repository, follow 
       -->
       ```
     - **HTML Templates (`.html`)**: Hugo comment at the top of the template:
+      <!-- prettier-ignore -->
       ```html
       {{/*
       SPDX-FileCopyrightText: 2026 TorrPlay
@@ -120,6 +126,10 @@ When writing, updating, or maintaining documentation in this repository, follow 
   ```sh
   hugo --minify --gc
   ```
+- **Format Markdown**:
+  ```sh
+  npx prettier --write "**/*.md"
+  ```
 
 Prerequisite: Hugo extended v0.166.0+.
 
@@ -137,6 +147,10 @@ Prerequisite: Hugo extended v0.166.0+.
     ```sh
     diff <(cd content/en && find . -type f | sort) <(cd content/ru && find . -type f | sort)
     ```
+- **Markdown Formatting**: Format all markdown documentation before committing:
+  ```sh
+  npx prettier --write "**/*.md"
+  ```
 - **Body Requirements**: For a non-trivial commit, add a body after a blank line and use `-` bullets. Write each bullet as a complete sentence ending with a period.
 - **Content Focus**: Use body bullets to describe observable behavior, user-visible changes, structural updates, or important details. Do not narrate file-by-file edits.
 - **Timestamp Symmetry**: When rebasing, amending, or squashing commits, ensure `GIT_COMMITTER_DATE` matches `GIT_AUTHOR_DATE`.
@@ -151,4 +165,3 @@ docs: add macOS WKWebView HTTP limitation hint for desktop app
 - Recommend using HTTPS or loopback addresses for streaming playback.
 - Synchronize advice across English and Russian documentation pages.
 ```
-

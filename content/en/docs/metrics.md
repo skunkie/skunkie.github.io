@@ -11,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-
 TorrPlay exports real-time application metrics in standard Prometheus format, enabling seamlessly integrated observability with Prometheus, Grafana, and OpenTelemetry collector setups.
 
 ## Endpoints
