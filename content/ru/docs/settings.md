@@ -1,7 +1,8 @@
 ---
 title: Справочник настроек
 weight: 7
-bookIcon: settings
+sidebar:
+  icon: cog
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Справочник настроек
 
 Все настройки TorrPlay управляются через единую конечную точку:
 

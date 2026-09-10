@@ -1,7 +1,8 @@
 ---
 title: API Reference
 weight: 2
-bookIcon: code
+sidebar:
+  icon: code
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# API Reference
 
 TorrPlay provides a comprehensive RESTful API for programmatic control. The full OpenAPI specification is available at [`api/api.yaml`](https://github.com/torrplay/torrplay/blob/main/api/api.yaml).
 

@@ -1,7 +1,8 @@
 ---
 title: DLNA / UPnP
 weight: 4
-bookIcon: tv
+sidebar:
+  icon: desktop-computer
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Потоковая передача по DLNA / UPnP
 
 TorrPlay включает встроенную службу DLNA / UPnP ContentDirectory, которая позволяет обнаруживать и воспроизводить в потоковом режиме содержимое торрентов на смарт-телевизорах, игровых консолях, медиаплеерах и телевизионных приставках в локальной сети.
 

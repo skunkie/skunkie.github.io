@@ -1,7 +1,8 @@
 ---
 title: Пакеты установки и десктопные приложения
 weight: 2
-bookIcon: download
+sidebar:
+  icon: download
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Пакеты установки и десктопные приложения
 
 TorrPlay поставляется в виде готовых дистрибутивов, десктопных приложений, мобильных пакетов и автономных исполняемых файлов для всех поддерживаемых операционных систем. Запуск в Docker-контейнере описан в разделе [Запуск в Docker](/quick-start/running-with-docker/).
 

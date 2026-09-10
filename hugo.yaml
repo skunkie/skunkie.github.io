@@ -4,9 +4,8 @@
 
 baseURL: "https://torrplay.github.io/"
 title: "TorrPlay"
-theme: "hugo-book"
+theme: "hextra"
 
-disablePathToLower: true
 enableGitInfo: true
 enableRobotsTXT: true
 
@@ -18,37 +17,48 @@ publishDir: "public"
 module:
   hugoVersion:
     extended: true
-    min: "0.164.0"
-
-security:
-  allowContent:
-    - "text/html"
-    - "text/markdown"
-
-params:
-  BookTheme: "ayu-auto"
-  BookFavicon: "favicon.png"
-  BookLogo: "logo.png"
-
-  BookRepo: "https://github.com/torrplay/torrplay.github.io"
-  BookLastChangeLink: "{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}"
-  BookEditLink: "{{ .Site.Params.BookRepo }}/edit/main/{{ .Path }}"
-  BookSearch: true
-  BookComments: false
-  BookPortableLinks: "warning"
-  BookServiceWorker: "precache"
-  BookSection: "/"
-  Repo:
-    Owner: "torrplay"
 
 markup:
   goldmark:
     renderer:
       unsafe: true
   highlight:
-    style: "nord"
-  tableOfContents:
-    startLevel: 1
+    noClasses: false
+
+params:
+  description: "TorrPlay - torrent streaming application featuring memory-managed piece storage"
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      path: "logo.png"
+      width: 24
+      height: 24
+    width: wide
+  theme:
+    default: system
+    displayToggle: true
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: false
+    width: wide
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
+  search:
+    enable: true
+    type: flexsearch
+    flexsearch:
+      index: content
+      tokenize: forward
+  editURL:
+    enable: true
+    base: "https://github.com/torrplay/torrplay.github.io/edit/main/content"
+  highlight:
+    copy:
+      enable: true
+  Repo:
+    Owner: "torrplay"
 
 languages:
   en:
@@ -57,24 +67,103 @@ languages:
     weight: 1
     title: "TorrPlay"
     menu:
-      after:
-        - name: "GitHub"
-          url: "https://github.com/torrplay/torrplay"
-          weight: 1
+      main:
+        - identifier: docs
+          name: "Documentation"
+          pageRef: /docs
+          weight: 10
           params:
-            bookIcon: "github"
-    params:
-      BookDateFormat: "January 2, 2006"
+            type: link
+            icon: book-open
+        - identifier: quick-start
+          name: "Quick Start"
+          pageRef: /quick-start
+          weight: 20
+          params:
+            type: link
+            icon: lightning-bolt
+        - identifier: download
+          name: "Download"
+          pageRef: /download
+          weight: 30
+          params:
+            type: link
+            icon: download
+        - identifier: openapi
+          name: "API"
+          pageRef: /openapi
+          weight: 40
+          params:
+            type: link
+            icon: code
+        - name: Search
+          weight: 80
+          params:
+            type: search
+        - name: Language
+          weight: 90
+          params:
+            type: language-switch
+        - name: Theme
+          weight: 95
+          params:
+            type: theme-toggle
+        - name: GitHub
+          weight: 100
+          url: "https://github.com/torrplay/torrplay"
+          params:
+            icon: github
   ru:
     label: "Русский"
     contentDir: "content/ru"
     weight: 2
     title: "TorrPlay"
+    params:
+      dateFormat: "2 January 2006"
     menu:
-      after:
-        - name: "GitHub"
+      main:
+        - identifier: docs
+          name: "Документация"
+          pageRef: /docs
+          weight: 10
+          params:
+            type: link
+            icon: book-open
+        - identifier: quick-start
+          name: "Быстрый старт"
+          pageRef: /quick-start
+          weight: 20
+          params:
+            type: link
+            icon: lightning-bolt
+        - identifier: download
+          name: "Скачать"
+          pageRef: /download
+          weight: 30
+          params:
+            type: link
+            icon: download
+        - identifier: openapi
+          name: "API"
+          pageRef: /openapi
+          weight: 40
+          params:
+            type: link
+            icon: code
+        - name: Search
+          weight: 80
+          params:
+            type: search
+        - name: Language
+          weight: 90
+          params:
+            type: language-switch
+        - name: Theme
+          weight: 95
+          params:
+            type: theme-toggle
+        - name: GitHub
+          weight: 100
           url: "https://github.com/torrplay/torrplay"
           params:
-            bookIcon: "github"
-    params:
-      BookDateFormat: "2 January 2006"
+            icon: github

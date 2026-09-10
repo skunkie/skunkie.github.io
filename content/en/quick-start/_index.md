@@ -1,8 +1,10 @@
 ---
 title: Quick Start
 weight: 2
-bookToC: false
-bookIcon: rocket
+type: docs
+toc: false
+cascade:
+  type: docs
 ---
 
 <!--
@@ -11,37 +13,14 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Quick Start
 
 Welcome to TorrPlay! Choose your preferred deployment or installation path below.
 
-<div class="docs-card-grid">
-
-  <a href="/download" class="docs-card">
-    <div class="docs-card-header">
-      <div class="docs-card-icon">📥</div>
-      <h3 class="docs-card-title">Download</h3>
-    </div>
-    <p class="docs-card-desc">Get the latest TorrPlay release for your platform — Windows, macOS, Linux, and Android.</p>
-  </a>
-
-  <a href="/quick-start/running-with-docker" class="docs-card">
-    <div class="docs-card-header">
-      <div class="docs-card-icon">🐳</div>
-      <h3 class="docs-card-title">Running with Docker</h3>
-    </div>
-    <p class="docs-card-desc">Deploy containerized TorrPlay using Docker CLI or Docker Compose.</p>
-  </a>
-
-  <a href="/quick-start/building-from-source" class="docs-card">
-    <div class="docs-card-header">
-      <div class="docs-card-icon">🛠️</div>
-      <h3 class="docs-card-title">Building from Source</h3>
-    </div>
-    <p class="docs-card-desc">Compile the Go streaming engine and Next.js web client manually from source code.</p>
-  </a>
-
-</div>
+{{< cards >}}
+  {{< card link="/download" title="Download" icon="arrow-down" subtitle="Get the latest TorrPlay release for your platform — Windows, macOS, Linux, and Android." >}}
+  {{< card link="running-with-docker" title="Running with Docker" icon="server" subtitle="Deploy containerized TorrPlay using Docker CLI or Docker Compose, with ready-to-use configuration examples." >}}
+  {{< card link="building-from-source" title="Building from Source" icon="code" subtitle="Compile the Go streaming engine and Next.js web client manually from source code." >}}
+{{< /cards >}}
 
 ## Next Steps
 

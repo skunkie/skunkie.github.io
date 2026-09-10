@@ -22,3 +22,12 @@
 
 - id: "size"
   translation: "Размер"
+
+- id: "selectVersion"
+  translation: "Версия"
+
+- id: "viewReleases"
+  translation: "Открыть релизы на GitHub"
+
+- id: "copyright"
+  translation: "© 2026 TorrPlay."

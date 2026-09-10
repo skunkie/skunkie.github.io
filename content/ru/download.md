@@ -1,9 +1,8 @@
 ---
 title: Скачать
 weight: 1
-bookIcon: arrow-down-tray
 layout: "download"
-bookToC: false
+toc: true
 ---
 
 <!--

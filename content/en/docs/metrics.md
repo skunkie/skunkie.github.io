@@ -1,7 +1,8 @@
 ---
 title: Prometheus Metrics & Monitoring
 weight: 5
-bookIcon: activity
+sidebar:
+  icon: chart-bar
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Metrics & Monitoring
 
 TorrPlay exports real-time application metrics in standard Prometheus format, enabling seamlessly integrated observability with Prometheus, Grafana, and OpenTelemetry collector setups.
 

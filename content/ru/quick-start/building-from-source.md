@@ -1,7 +1,6 @@
 ---
 title: Сборка из исходного кода
 weight: 3
-bookIcon: code
 ---
 
 <!--
@@ -10,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Сборка из исходного кода
 
 Данное руководство описывает ручную компиляцию TorrPlay из исходного кода.
 

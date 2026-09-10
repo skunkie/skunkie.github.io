@@ -1,7 +1,8 @@
 ---
 title: Settings Reference
 weight: 7
-bookIcon: settings
+sidebar:
+  icon: cog
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Settings Reference
 
 All TorrPlay settings are managed through a single endpoint:
 

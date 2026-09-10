@@ -1,7 +1,6 @@
 ---
 title: Running with Docker
 weight: 2
-bookIcon: server
 ---
 
 <!--
@@ -10,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Running with Docker
 
 This guide covers running TorrPlay using Docker and Docker Compose.
 

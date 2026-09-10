@@ -1,7 +1,6 @@
 ---
 title: Запуск в Docker
 weight: 2
-bookIcon: server
 ---
 
 <!--
@@ -10,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Запуск в Docker
 
 Данное руководство описывает запуск TorrPlay с помощью Docker и Docker Compose.
 

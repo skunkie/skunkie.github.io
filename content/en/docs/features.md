@@ -1,7 +1,8 @@
 ---
 title: Features
 weight: 1
-bookIcon: star
+sidebar:
+  icon: star
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Features
 
 TorrPlay offers a comprehensive set of features for torrent streaming, local storage management, media server compatibility, and observability.
 
@@ -34,8 +34,8 @@ See the full **[DLNA / UPnP Streaming Guide](/docs/dlna)** for configuration det
 
 TorrPlay offers two distinct storage backends for managing torrent data:
 
-{{< tabs "storage-backend" >}}
-{{% tab "Memory Storage" %}}
+{{< tabs >}}
+{{< tab name="Memory Storage" >}}
 Torrent pieces are downloaded and cached in RAM up to a configurable limit (`max_memory`). When the limit is reached, a Least Recently Used (LRU) eviction policy discards the oldest pieces.
 
 **Pros:**
@@ -49,8 +49,8 @@ Torrent pieces are downloaded and cached in RAM up to a configurable limit (`max
 - Volatile (data lost on restart)
 - Limited by available RAM
 
-{{% /tab %}}
-{{% tab "File Storage" %}}
+{{< /tab >}}
+{{< tab name="File Storage" >}}
 Torrent pieces are saved directly to the filesystem for persistent storage that survives application restarts. Set `file_storage_path` to configure the storage location.
 
 **Pros:**
@@ -63,7 +63,7 @@ Torrent pieces are saved directly to the filesystem for persistent storage that 
 - Slower than memory storage
 - Increased disk I/O
 
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 > [!NOTE]

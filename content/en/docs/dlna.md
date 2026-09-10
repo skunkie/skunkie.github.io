@@ -1,7 +1,8 @@
 ---
 title: DLNA / UPnP
 weight: 4
-bookIcon: tv
+sidebar:
+  icon: desktop-computer
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# DLNA / UPnP Streaming
 
 TorrPlay includes a built-in DLNA / UPnP ContentDirectory service, allowing you to discover and stream torrent media directly to Smart TVs, game consoles, media players, and set-top boxes on your local network.
 

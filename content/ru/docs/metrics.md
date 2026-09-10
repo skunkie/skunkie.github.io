@@ -1,7 +1,8 @@
 ---
 title: Метрики Prometheus и мониторинг
 weight: 5
-bookIcon: activity
+sidebar:
+  icon: chart-bar
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Метрики и мониторинг
 
 TorrPlay предоставляет метрики приложения в реальном времени в стандартном формате Prometheus, что позволяет использовать его с Prometheus, Grafana и коллекторами OpenTelemetry.
 

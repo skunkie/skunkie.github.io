@@ -9,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Overview
 
 TorrPlay is a torrent streaming application featuring memory-managed piece storage. It lets you stream torrent content directly over HTTP without downloading the entire torrent first.
 

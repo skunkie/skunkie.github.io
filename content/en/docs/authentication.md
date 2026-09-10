@@ -1,7 +1,8 @@
 ---
 title: Authentication
 weight: 3
-bookIcon: lock
+sidebar:
+  icon: lock-closed
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Authentication
 
 TorrPlay secures its API endpoints using two authentication methods, configurable via the `/api/v1/settings` endpoint.
 
@@ -30,13 +30,13 @@ Token-based authentication using JSON Web Tokens (JWT). All endpoints are protec
 
 TorrPlay supports two authentication types. Choose the one that fits your use case:
 
-{{< tabs "auth-type" >}}
-{{< tab "Basic Auth" >}}
+{{< tabs >}}
+{{< tab name="Basic Auth" >}}
 
 Username and password are sent with every request using HTTP Basic Auth. Stream endpoints remain unauthenticated for media player compatibility.
 
 {{< /tab >}}
-{{< tab "Bearer Token Auth" >}}
+{{< tab name="Bearer Token Auth" >}}
 
 JWT tokens are used for authentication. All endpoints including streaming are protected. A secure `HttpOnly` session cookie is also set for browser-based access.
 

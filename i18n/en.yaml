@@ -22,3 +22,12 @@
 
 - id: "size"
   translation: "Size"
+
+- id: "selectVersion"
+  translation: "Version"
+
+- id: "viewReleases"
+  translation: "View releases on GitHub"
+
+- id: "copyright"
+  translation: "© 2026 TorrPlay."

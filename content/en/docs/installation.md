@@ -1,7 +1,8 @@
 ---
 title: Installers & Desktop Apps
 weight: 2
-bookIcon: download
+sidebar:
+  icon: download
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Installers & Desktop Client Apps
 
 TorrPlay provides pre-packaged installers, desktop applications, mobile packages, and standalone binaries for all major operating systems. For containerized deployments, see the [Running with Docker](/quick-start/running-with-docker/) guide.
 

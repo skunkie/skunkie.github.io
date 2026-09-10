@@ -1,7 +1,8 @@
 ---
 title: Справочник API
 weight: 2
-bookIcon: code
+sidebar:
+  icon: code
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Справочник API
 
 TorrPlay предоставляет полнофункциональный RESTful API для программного управления. Полная спецификация OpenAPI доступна по адресу [`api/api.yaml`](https://github.com/torrplay/torrplay/blob/main/api/api.yaml).
 

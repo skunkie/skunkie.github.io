@@ -1,7 +1,6 @@
 ---
 title: Building from Source
 weight: 3
-bookIcon: code
 ---
 
 <!--
@@ -10,7 +9,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Building from Source
 
 This guide covers compiling TorrPlay manually from source code.
 

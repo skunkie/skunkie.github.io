@@ -1,7 +1,8 @@
 ---
 title: Плейлисты и журналы
 weight: 9
-bookIcon: list
+sidebar:
+  icon: menu-alt-2
 ---
 
 <!--
@@ -10,7 +11,6 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 -->
 
-# Плейлисты и журналы
 
 ## API плейлистов
 
