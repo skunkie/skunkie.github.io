@@ -4,22 +4,34 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 */}}
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>{{ .Title }} — {{ .Site.Title }}</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1" />
+    {{ partial "favicons.html" . }}
   </head>
+
   <body>
-    <redoc spec-url='https://raw.githubusercontent.com/{{ .Site.Params.Repo.Owner }}/torrplay/main/api/api.yaml'></redoc>
-    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+    <div id="app"></div>
+
+    <!-- Load the Script -->
+    {{ $scalar := resources.GetRemote "https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.68.0/dist/browser/standalone.js" }}
+    {{ with $scalar }}
+      <script src="{{ .RelPermalink }}"></script>
+    {{ end }}
+
+    <!-- Initialize the Scalar API Reference -->
+    <script>
+      Scalar.createApiReference('#app', {
+        // The URL of the OpenAPI/Swagger document
+        url: 'https://raw.githubusercontent.com/{{ .Site.Params.Repo.Owner }}/torrplay/main/api/api.yaml',
+        // Avoid CORS issues
+        proxyUrl: 'https://proxy.scalar.com',
+      })
+    </script>
   </body>
 </html>

@@ -14,7 +14,7 @@ SPDX-License-Identifier: MIT
 
 TorrPlay provides a comprehensive RESTful API for programmatic control. The full OpenAPI specification is available at [`api/api.yaml`](https://github.com/torrplay/torrplay/blob/main/api/api.yaml).
 
-You can also interact with the API documentation using the **[Redoc](/openapi/)**.
+You can also interact with the API documentation using **[Scalar](/openapi/)**.
 
 ## Base URL
 
