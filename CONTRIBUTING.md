@@ -35,11 +35,12 @@ Blank issues are disabled.
 
 ### Before Submitting
 
-Format the Markdown, check that both languages have the same files, and make sure the site builds. The symmetry check uses process substitution, so run these commands in bash or zsh:
+Format the Markdown, check that both languages have the same files, check license information, and make sure the site builds. The checks need Node.js (for `npx`) and [reuse](https://reuse.software/). The symmetry check uses process substitution, so run these commands in bash or zsh:
 
 ```bash
 npx prettier --write "**/*.md"
 diff <(cd content/en && find . -type f | sort) <(cd content/ru && find . -type f | sort)
+reuse lint
 hugo --minify --gc
 ```
 
@@ -52,6 +53,10 @@ hugo server
 ```
 
 Requires Hugo extended v0.166.0+.
+
+## License
+
+The documentation is MIT licensed. By contributing, you agree that your contribution is provided under the same license. Every file carries an SPDX copyright and license header or is covered by `REUSE.toml`. `reuse lint` fails when one does not, so a new file needs its header.
 
 ## Code of Conduct
 

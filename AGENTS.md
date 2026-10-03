@@ -85,6 +85,8 @@ When writing, updating, or maintaining documentation in this repository, follow 
       #
       # SPDX-License-Identifier: MIT
       ```
+    - **Files that cannot hold comments** (images, JSON): add their paths to the `[[annotations]]` list in [`REUSE.toml`](REUSE.toml) instead.
+  - The repository follows the [REUSE Specification](https://reuse.software/); the license text lives in `LICENSES/MIT.txt`. Keep it identical to the root `LICENSE` file, which GitHub displays.
 - **Links**:
   - Use relative root-based paths (e.g., `[Quick Start](/quick-start/)`, `[Documentation](/docs/)`).
 - **Shortcodes & Visual Components**:
@@ -153,6 +155,10 @@ Prerequisite: Hugo extended v0.166.0+.
 - **Markdown Formatting**: Format all markdown documentation before committing:
   ```sh
   npx prettier --write "**/*.md"
+  ```
+- **License Compliance**: Verify that every file carries license information with the [`reuse`](https://reuse.software/) tool:
+  ```sh
+  reuse lint
   ```
 - **Body Requirements**: For a non-trivial commit, add a body after a blank line and use `-` bullets. Write each bullet as a complete sentence ending with a period.
 - **Content Focus**: Use body bullets to describe observable behavior, user-visible changes, structural updates, or important details. Do not narrate file-by-file edits.
