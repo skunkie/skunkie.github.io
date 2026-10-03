@@ -28,6 +28,15 @@ SPDX-License-Identifier: MIT
 docker pull ghcr.io/torrplay/torrplay:latest
 ```
 
+Перед запуском контейнера создайте каталог для данных. Внутри контейнера TorrPlay работает от пользователя с ID `1000`, поэтому у него должны быть права на запись в этот каталог. Если отсутствующий каталог создаст сам Docker, владельцем станет `root`, и TorrPlay не сможет туда писать:
+
+```sh
+mkdir -p data
+sudo chown 1000:1000 data
+```
+
+Настройка владельца нужна для Docker на Linux. Если ваш собственный ID пользователя уже `1000` (проверить можно командой `id -u`), `chown` выполнять не нужно. Docker Desktop на macOS и Windows сам управляет правами на смонтированные каталоги, поэтому там достаточно `mkdir`.
+
 Запустите контейнер в фоновом режиме:
 
 ```sh
@@ -61,7 +70,7 @@ services:
     restart: unless-stopped
 ```
 
-Запустите приложение:
+Создайте каталог `data` с теми же правами, что описаны выше, и запустите приложение:
 
 ```sh
 docker compose up -d
@@ -82,3 +91,23 @@ docker compose restart
 # Обновление до актуального образа контейнера
 docker compose pull && docker compose up -d
 ```
+
+---
+
+## DLNA в Docker
+
+Обнаружение DLNA-сервера работает через SSDP-мультикаст, который не проходит через стандартную bridge-сеть Docker. Чтобы телевизоры и медиаплееры увидели TorrPlay, запустите контейнер в режиме host-сети. Проброс портов в этом режиме не используется:
+
+```sh
+docker run -d \
+  --name torrplay \
+  --network host \
+  -v $(pwd)/data:/app/data \
+  --restart unless-stopped \
+  ghcr.io/torrplay/torrplay:latest \
+  --data-dir /app/data
+```
+
+В Docker Compose замените раздел `ports` на `network_mode: host`.
+
+Режим host-сети доступен на Linux. Если ваша среда Docker его не поддерживает, для работы DLNA запускайте TorrPlay без контейнера.

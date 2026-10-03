@@ -32,6 +32,10 @@ TorrPlay содержит встроенную службу DLNA / UPnP ContentD
 
 Параметры DLNA настраиваются через API (`/api/v1/settings`) или в веб-интерфейсе.
 
+{{< callout type="info" >}}
+Запускаете TorrPlay в Docker? Для обнаружения DLNA-сервера нужен режим host-сети — см. раздел [DLNA в Docker](/quick-start/running-with-docker/#dlna-в-docker).
+{{< /callout >}}
+
 ### Параметры
 
 | Параметр        | Тип     | По умолчанию | Описание                                     |

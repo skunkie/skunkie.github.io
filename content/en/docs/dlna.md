@@ -32,6 +32,10 @@ The DLNA server is compatible with standard UPnP / DLNA media players, including
 
 DLNA settings can be managed via the settings API (`/api/v1/settings`) or through the Web UI.
 
+{{< callout type="info" >}}
+Running TorrPlay in Docker? DLNA discovery needs host networking — see [DLNA in Docker](/quick-start/running-with-docker/#dlna-in-docker).
+{{< /callout >}}
+
 ### Parameters
 
 | Setting         | Type    | Default    | Description                                |
