@@ -139,7 +139,7 @@ Prerequisite: Hugo extended v0.166.0+.
 ## Commit Messages & History Hygiene
 
 - **Conventional Commits**: Use `type(scope): concise imperative summary`.
-  - Common types: `docs`, `feat`, `fix`, `refactor`.
+  - Common types: `docs`, `feat`, `fix`, `refactor`, `ci`.
   - Scopes: Use language codes (`en`, `ru`) for language-specific documentation changes (e.g., `docs(ru): ...`), or components/layouts (e.g., `feat(download): ...`, `fix(sidebar): ...`). Omit the scope for cross-cutting changes, as in `docs: ...`.
 - **Subject Formatting**: Keep the subject concise, lowercase after the colon, and without a trailing period.
 - **Atomic Commits**: Treat one cohesive change and its supporting translations or layout updates as one commit.
