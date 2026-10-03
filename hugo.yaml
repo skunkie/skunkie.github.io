@@ -40,6 +40,8 @@ params:
       width: 24
       height: 24
     width: wide
+  page:
+    width: wide
   theme:
     default: system
     displayToggle: true
