@@ -16,7 +16,8 @@ SPDX-License-Identifier: MIT
   {{ .Content }}
   <div id="downloads-selector"></div>
   <div id="downloads-tables"></div>
-  {{- /* Fetch the release-notes renderer and sanitizer at build time and serve them from this site. */ -}}
+  {{- /* DOMPurify keeps release notes from GitHub from injecting scripts, so neither it nor the
+     Markdown renderer may depend on a third-party CDN at runtime: both ship with the site. */ -}}
   {{ range slice
     "https://cdn.jsdelivr.net/npm/marked@18.0.11/lib/marked.umd.js"
     "https://cdn.jsdelivr.net/npm/dompurify@3.4.14/dist/purify.min.js"

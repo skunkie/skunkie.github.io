@@ -13,7 +13,9 @@ on:
 permissions:
   contents: read
 
-# Never run two deployments at once; let an in-progress deployment finish.
+# Pull requests get one group each, and a new push cancels that pull request's
+# outdated check run. Pushes to main share the "pages" group without
+# cancellation, so deployments run one at a time and none is cut off midway.
 concurrency:
   group: ${{ github.event_name == 'pull_request' && format('docs-pr-{0}', github.event.pull_request.number) || 'pages' }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
