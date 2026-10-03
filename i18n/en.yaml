@@ -2,6 +2,12 @@
 #
 # SPDX-License-Identifier: MIT
 
+- id: "clickToCopy"
+  translation: "Click to copy"
+
+- id: "copied"
+  translation: "Copied"
+
 - id: "downloadsCol"
   translation: "Downloads"
 

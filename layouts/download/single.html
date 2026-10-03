@@ -41,6 +41,8 @@ SPDX-License-Identifier: MIT
     var cacheKey = "torrplay-releases-v1:" + repoOwner;
     var cacheTTL = 60 * 60 * 1000;
     var L = {
+      clickToCopy:   {{ i18n "clickToCopy" | jsonify | safeJS }},
+      copied:        {{ i18n "copied" | jsonify | safeJS }},
       file:          {{ i18n "file" | jsonify | safeJS }},
       size:          {{ i18n "size" | jsonify | safeJS }},
       downloads:     {{ i18n "downloadsCol" | jsonify | safeJS }},
@@ -158,12 +160,12 @@ SPDX-License-Identifier: MIT
       var hash = document.createElement("code");
       hash.textContent = hashDisplay;
       if (digest) {
-        hash.title = "Click to copy";
+        hash.title = L.clickToCopy;
         hash.tabIndex = 0;
         hash.setAttribute("role", "button");
         var copyHash = function() {
           navigator.clipboard.writeText(digest).then(function() {
-            hash.title = "Copied";
+            hash.title = L.copied;
           }).catch(function() {});
         };
         hash.addEventListener("click", copyHash);
