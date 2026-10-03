@@ -91,7 +91,7 @@ SPDX-License-Identifier: MIT
       if (f.includes("linux")) return "linux";
       if (f.includes("windows") || f.includes("nsis")) return "windows";
       if (f.includes("android")) return "android";
-      if (f.includes(".aar") || f.includes(".jar")) return null;
+      if (f.includes(".aar") || f.includes(".jar")) return "android"; // gomobile library and its sources
       if (f.includes(".dmg") || f.includes("macos") || f.includes("aarch64-apple") || f.includes("x86_64-apple")) return "darwin";
       if (f.includes(".msi") || f.includes(".exe") || f.includes("setup")) return "windows";
       if (f.includes(".apk")) return "android";
@@ -101,6 +101,7 @@ SPDX-License-Identifier: MIT
 
     function getArch(filename) {
       var f = filename.toLowerCase();
+      if (f.includes(".aar") || f.includes(".jar")) return "universal"; // one library for every Android ABI
       if (f.includes("arm64") || f.includes("aarch64")) return "arm64";
       if (f.includes("armeabi")) return "armeabi-v7a";
       if (f.includes("x86_64") && f.includes("android")) return "x86_64";
