@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: MIT
 
 # Images and JSON cannot carry comment headers, so their license is declared here.
-# The icons are copied from the TorrPlay client (torrplay/torrplay, client/).
+# The icons are copied from the TorrPlay client (torrplay/torrplay, client/). logo-dark.png is
+# the official 256px icon with its palette remapped for dark backgrounds.
 version = 1
 
 [[annotations]]
@@ -15,6 +16,7 @@ path = [
   "static/favicon-32x32.png",
   "static/favicon.ico",
   "static/favicon.png",
+  "static/logo-dark.png",
   "static/logo.png",
   "static/site.webmanifest",
 ]
