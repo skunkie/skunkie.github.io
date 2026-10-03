@@ -33,6 +33,9 @@ jobs:
       - name: Check Markdown formatting
         run: npx --yes prettier@3.9.9 --check "**/*.md"
 
+      - name: Check license compliance
+        run: pipx run --spec reuse==6.2.0 reuse lint
+
       - name: Check language symmetry
         shell: bash
         run: |
