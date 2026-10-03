@@ -21,7 +21,7 @@ When installed, TorrPlay exposes your active torrent library as browsable movie 
 - **Smart Media Classification:** Automatically identifies and groups torrent contents into **Movies** and **Series**.
 - **Episode & Season Parsing:** Extracts season and episode indices from filenames (e.g., `S01E02`, `1x05`, `ep 03`) to display structured series navigation in Stremio.
 - **Library Catalog Search:** Search and filter your TorrPlay library directly within the Stremio interface.
-- **Authentication & Security:** Supports token-based authentication via path prefixes (`/stremio/{token}/manifest.json`) or query parameters (`?token=...`), ensuring private instances remain secure.
+- **Authentication & Security:** Accepts a dedicated Stremio token in the URL path (`/stremio/{token}/manifest.json`) or the `token` query parameter, so private instances remain protected.
 - **Direct Stream Dispatch:** Formats streaming URLs as `/stremio/play/{hash}/{fileIdx}/{filename}`, allowing external players (ExoPlayer, VLC) to accurately infer MIME types and display proper filenames.
 
 ## Installation & Setup
@@ -55,23 +55,31 @@ stremio://<torrplay-host>:<port>/stremio/manifest.json
 
 ## Authentication with Stremio
 
-If authentication is enabled on your TorrPlay instance, you must supply a scoped playback token or auth token so Stremio can read catalogs and stream media.
+If authentication is enabled, Stremio URLs must include the dedicated Stremio token. Read it from the `stremio_token` field of `GET /api/v1/settings`:
+
+```sh
+curl -s -u your-username:your-password http://localhost:8090/api/v1/settings | jq -r .stremio_token
+```
+
+With Bearer authentication, replace `-u` with `-H "Authorization: Bearer your-jwt-token"`. The example uses [jq](https://jqlang.org/) to extract the field; you can also read it from the full JSON response.
+
+The token stays the same until you change any authentication setting, which revokes it. Playback tokens and administrative access tokens are not accepted on Stremio routes.
 
 TorrPlay supports two authenticated URL formats:
 
 ### Path-Prefixed Token (Recommended)
 
 ```text
-http://<torrplay-host>:<port>/stremio/<your-token>/manifest.json
+http://<torrplay-host>:<port>/stremio/<your-stremio-token>/manifest.json
 ```
 
 ### Query Parameter Token
 
 ```text
-http://<torrplay-host>:<port>/stremio/manifest.json?token=<your-token>
+http://<torrplay-host>:<port>/stremio/manifest.json?token=<your-stremio-token>
 ```
 
-When you click **Install Stremio Addon** in the TorrPlay Web UI while logged in, the generated link automatically includes your authentication token.
+When you click **Install Stremio Addon** in the TorrPlay Web UI while logged in, the generated link automatically includes the Stremio token. Stream links returned to Stremio carry the token in their path as well.
 
 ## Stremio Endpoints Reference
 

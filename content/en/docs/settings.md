@@ -43,6 +43,15 @@ The request body is a JSON object. Only the fields you include are updated — o
 >
 > **`torrent_client`** controls the underlying BitTorrent engine behavior. Options include rate limits, connection limits, protocol flags, and DHT/PEX settings.
 
+## Read-Only Fields
+
+When authentication is enabled, `GET /api/v1/settings` also returns two scoped tokens. `PATCH` requests cannot change them; the server ignores these fields if they are sent:
+
+| Field            | Description                                                                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `playback_token` | Short-lived token restricted to media playback routes — see [Scoped Playback Tokens](/docs/authentication/#scoped-playback-tokens) |
+| `stremio_token`  | Token for Stremio addon URLs; stays the same until an authentication setting changes — see [Stremio Integration](/docs/stremio/)   |
+
 ## Background Downloader
 
 When `enable_downloader` is `true`, TorrPlay automatically downloads torrents that use file storage in the background. Background downloads are automatically **paused** whenever any streaming session becomes active to avoid bandwidth contention, and **resume** when all streaming sessions end. The downloader polls for eligible torrents every 60 seconds.
