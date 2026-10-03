@@ -1,6 +1,6 @@
 ---
 title: API Reference
-weight: 2
+weight: 3
 sidebar:
   icon: code
 ---
@@ -73,13 +73,13 @@ http://localhost:8090
 
 ### System
 
-| Method | Endpoint              | Description                        |
-| ------ | --------------------- | ---------------------------------- |
-| `GET`  | `/api/system/health`  | Health check                       |
-| `GET`  | `/api/system/info`    | Get application information        |
-| `GET`  | `/api/system/logs`    | Get recent application logs        |
-| `GET`  | `/api/system/metrics` | Get system metrics                 |
-| `GET`  | `/metrics`            | Prometheus metrics export endpoint |
+| Method | Endpoint              | Description                                                        |
+| ------ | --------------------- | ------------------------------------------------------------------ |
+| `GET`  | `/api/system/health`  | Health check                                                       |
+| `GET`  | `/api/system/info`    | Get application information                                        |
+| `GET`  | `/api/system/logs`    | Get recent application logs — see [Logs](/docs/logs/)              |
+| `GET`  | `/api/system/metrics` | Get system metrics — see [Metrics](/docs/metrics/)                 |
+| `GET`  | `/metrics`            | Prometheus metrics export endpoint — see [Metrics](/docs/metrics/) |
 
 ### qBittorrent Compatibility
 

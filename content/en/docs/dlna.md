@@ -1,6 +1,6 @@
 ---
 title: DLNA / UPnP
-weight: 4
+weight: 7
 sidebar:
   icon: desktop-computer
 ---

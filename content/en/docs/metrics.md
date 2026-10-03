@@ -1,6 +1,6 @@
 ---
 title: Prometheus Metrics & Monitoring
-weight: 5
+weight: 8
 sidebar:
   icon: chart-bar
 ---

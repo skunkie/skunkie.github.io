@@ -25,5 +25,6 @@ Welcome to the TorrPlay documentation. Explore the topics below to learn about i
 {{< card link="metrics" title="Prometheus Metrics" icon="chart-bar" subtitle="Real-time observability via /metrics, active stream gauges, request latency histograms, and Prometheus scrape config." >}}
 {{< card link="settings" title="Settings Reference" icon="cog" subtitle="Schema for /api/v1/settings, covering storage, logging, authentication, CORS, and torrent client tuning." >}}
 {{< card link="backup" title="Backup & Restore" icon="archive" subtitle="Exporting torrent libraries, restoring backups across instances, and updating backup metadata via CLI." >}}
-{{< card link="playlist" title="Playlists & Logs" icon="play" subtitle="Generating token-authenticated M3U playlists for media players and inspecting in-memory log buffer entries." >}}
+{{< card link="playlist" title="Playlists" icon="play" subtitle="Generating token-authenticated M3U playlists for media players." >}}
+{{< card link="logs" title="Logs" icon="document-text" subtitle="Searching and filtering the in-memory log buffer, retention, verbosity, and structured JSON output." >}}
 {{< /cards >}}

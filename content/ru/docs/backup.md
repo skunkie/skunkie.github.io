@@ -1,6 +1,6 @@
 ---
 title: Резервное копирование и восстановление
-weight: 8
+weight: 10
 sidebar:
   icon: archive
 ---

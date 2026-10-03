@@ -1,6 +1,6 @@
 ---
 title: Аутентификация
-weight: 3
+weight: 4
 sidebar:
   icon: lock-closed
 ---

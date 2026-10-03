@@ -1,6 +1,6 @@
 ---
 title: Backup & Restore
-weight: 8
+weight: 10
 sidebar:
   icon: archive
 ---

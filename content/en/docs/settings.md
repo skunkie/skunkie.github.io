@@ -1,6 +1,6 @@
 ---
 title: Settings Reference
-weight: 7
+weight: 9
 sidebar:
   icon: cog
 ---
@@ -21,22 +21,22 @@ The request body is a JSON object. Only the fields you include are updated — o
 
 ## Top-Level Settings
 
-| Field                  | Type             | Default             | Constraints                                    | Description                                                                                            |
-| ---------------------- | ---------------- | ------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `enable_dlna`          | boolean          | `false`             | —                                              | Enable the built-in DLNA media server                                                                  |
-| `enable_downloader`    | boolean          | `false`             | —                                              | Enable background downloading for file-storage torrents                                                |
-| `enable_stremio`       | boolean          | `false`             | —                                              | Enable native Stremio Addon Protocol support — see [Stremio Integration](/docs/stremio)                |
-| `cors_allowed_origins` | array of strings | `[]`                | valid URIs                                     | Additional origins allowed to access the API via CORS (loopback, Tauri, and Capacitor always trusted)  |
-| `file_storage_path`    | string           | `""`                | —                                              | Filesystem path for file-based piece storage                                                           |
-| `friendly_name`        | string           | `"TorrPlay"`        | 3–15 characters                                | DLNA server name broadcast on the local network                                                        |
-| `http_server_port`     | integer          | `8090`              | 1–65535                                        | TCP port the HTTP server listens on                                                                    |
-| `log_format`           | string (enum)    | `"text"`            | `"text"` \| `"json"`                           | Log output format — use `"json"` for structured logging with external aggregators                      |
-| `log_level`            | string (enum)    | `"INFO"`            | `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"` | Minimum log severity level — set to `"DEBUG"` for verbose diagnostics                                  |
-| `log_store_size`       | integer          | `100`               | 0–1000                                         | Number of recent log entries kept in the in-memory ring buffer, retrievable via `GET /api/system/logs` |
-| `max_memory`           | integer (bytes)  | `67108864` (64 MiB) | 33554432–2147483648 (32 MiB – 2 GiB)           | Maximum RAM allocated for torrent piece caching                                                        |
-| `torrent_trackers`     | array of strings | `[]`                | —                                              | Custom tracker list (see [Tracker Format](#tracker-format))                                            |
-| `auth`                 | object           | —                   | —                                              | Authentication configuration — see [Authentication](/docs/authentication)                              |
-| `torrent_client`       | object           | —                   | —                                              | Torrent client settings — see [Torrent Client Settings](#torrent-client-settings)                      |
+| Field                  | Type             | Default             | Constraints                                    | Description                                                                                                           |
+| ---------------------- | ---------------- | ------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `enable_dlna`          | boolean          | `false`             | —                                              | Enable the built-in DLNA media server                                                                                 |
+| `enable_downloader`    | boolean          | `false`             | —                                              | Enable background downloading for file-storage torrents                                                               |
+| `enable_stremio`       | boolean          | `false`             | —                                              | Enable native Stremio Addon Protocol support — see [Stremio Integration](/docs/stremio)                               |
+| `cors_allowed_origins` | array of strings | `[]`                | valid URIs                                     | Additional origins allowed to access the API via CORS (loopback, Tauri, and Capacitor always trusted)                 |
+| `file_storage_path`    | string           | `""`                | —                                              | Filesystem path for file-based piece storage                                                                          |
+| `friendly_name`        | string           | `"TorrPlay"`        | 3–15 characters                                | DLNA server name broadcast on the local network                                                                       |
+| `http_server_port`     | integer          | `8090`              | 1–65535                                        | TCP port the HTTP server listens on                                                                                   |
+| `log_format`           | string (enum)    | `"text"`            | `"text"` \| `"json"`                           | Log output format — use `"json"` for structured logging with external aggregators                                     |
+| `log_level`            | string (enum)    | `"INFO"`            | `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"` | Minimum log severity level — set to `"DEBUG"` for verbose diagnostics                                                 |
+| `log_store_size`       | integer          | `100`               | 0–1000                                         | Number of recent log entries kept in the in-memory ring buffer, retrievable via [`GET /api/system/logs`](/docs/logs/) |
+| `max_memory`           | integer (bytes)  | `67108864` (64 MiB) | 33554432–2147483648 (32 MiB – 2 GiB)           | Maximum RAM allocated for torrent piece caching                                                                       |
+| `torrent_trackers`     | array of strings | `[]`                | —                                              | Custom tracker list (see [Tracker Format](#tracker-format))                                                           |
+| `auth`                 | object           | —                   | —                                              | Authentication configuration — see [Authentication](/docs/authentication)                                             |
+| `torrent_client`       | object           | —                   | —                                              | Torrent client settings — see [Torrent Client Settings](#torrent-client-settings)                                     |
 
 > [!TIP]
 > **`auth`** controls who can access the API. Set `enabled`, `type` (`basic` or `bearer`), `username`, and `password`.
