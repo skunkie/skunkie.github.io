@@ -39,7 +39,7 @@ When writing, updating, or maintaining documentation in this repository, follow 
    - **English**: Use clear, concise, and technically accurate modern American English.
    - **Russian**: The Russian documentation must sound natural, lively, and idiomatic, as if originally authored by a native technical writer or systems engineer. Avoid mechanical word-for-word translation, English grammatical calques, heavy chains of genitive cases, and passive bureaucratic phrasing ("канцелярит").
    - **Translation Skill**: When writing, translating, or reviewing Russian documentation (`content/ru/`), follow the guidelines in [`.agents/skills/russian-technical-translation/SKILL.md`](.agents/skills/russian-technical-translation/SKILL.md).
-   - **Current-State Documentation**: Treat the site as an initial publication and describe only the current product behavior. Omit obsolete settings and behavior instead of explaining their removal. Do not use wording such as "now," "no longer," "previously," "replaced," `теперь`, `больше нет`, or `раньше` when it contrasts the current product with an unpublished earlier state. These words remain acceptable when they describe current operations or ordinary relative timing. Use historical or migration language only in an explicitly requested changelog, release note, or migration guide.
+   - **Current-State Documentation**: Treat the site as an initial publication and describe only the current product behavior. Omit obsolete settings and behavior instead of explaining their removal. Do not use wording such as "now," "no longer," "previously," "replaced," `теперь`, `больше нет`, or `раньше` when it contrasts the current product with an unpublished earlier state. These words remain acceptable when they describe current operations or ordinary relative timing. Do not describe fixed bugs or earlier failures either. Use historical or migration language only in an explicitly requested changelog, release note, or migration guide.
    - Ensure consistency in terminology across all pages (e.g., streaming terms, TorrPlay settings, UI labels).
    - Translate front matter `title` and section headings into the target language.
 
@@ -102,6 +102,7 @@ When writing, updating, or maintaining documentation in this repository, follow 
 - **Custom Overrides & Layout Standards**:
   - Layout overrides (such as sidebar modifications) live in [`layouts/_partials/`](layouts/_partials/). Keep overrides minimal and documented to simplify future theme upgrades.
   - **Client-Side Sanitization**: Any external or dynamic markup rendered in templates (such as markdown release notes fetched from GitHub) must be sanitized with DOMPurify before inserting into the DOM.
+  - **Code Comments**: In templates, scripts, workflows, and configuration, explain why the current code is written the way it is. Do not describe previous implementations, removed code, or the bugs a change fixed; record that history in the commit message.
   - **Hextra Styling**: Use Hextra's scoped utility classes (`hx:...`) to prevent styling conflicts and ensure consistent dark/light mode and responsive behavior.
 
 ## Development Workflow & Commands
@@ -154,6 +155,7 @@ Prerequisite: Hugo extended v0.166.0+.
   ```
 - **Body Requirements**: For a non-trivial commit, add a body after a blank line and use `-` bullets. Write each bullet as a complete sentence ending with a period.
 - **Content Focus**: Use body bullets to describe observable behavior, user-visible changes, structural updates, or important details. Do not narrate file-by-file edits.
+- **Where History Belongs**: Commit messages are the place for history, including what a change replaced or removed and which bug it fixed. Keep that history out of documentation pages and code comments.
 - **Timestamp Symmetry**: When rebasing, amending, or squashing commits, ensure `GIT_COMMITTER_DATE` matches `GIT_AUTHOR_DATE`.
 - **Atomic Buildability**: Ensure every commit compiles and verifies cleanly: run Hugo build (`hugo --minify --gc`) to ensure there are no template errors, broken links, or build failures.
 
