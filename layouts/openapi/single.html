@@ -30,9 +30,8 @@ SPDX-License-Identifier: MIT
     <script>
       Scalar.createApiReference('#app', {
         // The URL of the OpenAPI/Swagger document
+        // raw.githubusercontent.com allows cross-origin requests, so no proxy is needed.
         url: 'https://raw.githubusercontent.com/{{ .Site.Params.Repo.Owner }}/torrplay/main/api/api.yaml',
-        // Avoid CORS issues
-        proxyUrl: 'https://proxy.scalar.com',
       })
     </script>
   </body>
