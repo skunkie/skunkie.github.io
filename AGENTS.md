@@ -90,6 +90,7 @@ When writing, updating, or maintaining documentation in this repository, follow 
 - **Shortcodes & Visual Components**:
   - Hextra shortcodes (`{{< cards >}}`, `{{< card >}}`, `{{< tabs >}}`, `{{< tab >}}`, `{{< callout >}}`) are used throughout the site.
   - When adding a new page to a section (e.g., `/docs/` or `/quick-start/`), update the corresponding `_index.md` card grid in both `content/en/` and `content/ru/` with localized titles, subtitles, and matching icons.
+  - Give card links root-based paths. Hextra's `card` shortcode does not add a language prefix to its links, so Russian cards must include `/ru/` (e.g., `/ru/docs/api/`). Markdown links get the prefix automatically.
 
 ## Architecture & Special Layouts
 
