@@ -21,7 +21,7 @@ TorrPlay provides backup and restore endpoints for exporting and importing your 
 GET /api/v1/torrents/backup
 ```
 
-Returns a JSON file containing all torrent metadata (hashes, magnet links, names, categories, posters, and settings). Save it to disk:
+Returns a JSON file containing all torrent metadata (hashes, magnet links, names, categories, and posters). Application settings are not included. Save it to disk:
 
 ```sh
 curl -o torrplay.backup http://localhost:8090/api/v1/torrents/backup
@@ -60,7 +60,7 @@ Before restoring, you can update the backup file by fetching fresh metadata (pos
 | `--poster`          | Fetch and update poster images                  | Disabled          |
 | `--title`           | Update titles from provider                     | Disabled          |
 | `--language <lang>` | 3-letter language code (`eng`, `spa`, `rus`, …) | —                 |
-| `--provider <name>` | Metadata provider (currently `tvdb` only)       | —                 |
+| `--provider <name>` | Metadata provider (currently `tvdb` only)       | `tvdb`            |
 | `--api-key <key>`   | API key for the chosen provider                 | —                 |
 
 > **Note:** `--api-key` is required when `--poster` or `--title` is used.
