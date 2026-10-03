@@ -4,6 +4,13 @@ SPDX-FileCopyrightText: 2026 TorrPlay
 SPDX-License-Identifier: MIT
 */}}
 
+{{- /*
+Override of Hextra's sidebar partial (themes/hextra/layouts/_partials/sidebar.html).
+Only change: "sidebar-item-link" renders the icon set in a page's `sidebar.icon`
+front matter before the link title. Everything else follows upstream; when
+upgrading the theme, copy the new upstream file and reapply that change.
+*/ -}}
+
 {{- $context := .context -}}
 
 {{- $disableSidebar := .disableSidebar | default false -}}
