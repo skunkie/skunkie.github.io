@@ -13,7 +13,7 @@ Thank you for your interest in contributing to TorrPlay documentation!
 Please use the provided issue templates:
 
 - [Bug Report](https://github.com/torrplay/torrplay.github.io/issues/new?template=bug_report.yml)
-- [Feature Request](https://github.com/torrplay.github.io/issues/new?template=feature_request.yml)
+- [Feature Request](https://github.com/torrplay/torrplay.github.io/issues/new?template=feature_request.yml)
 
 Blank issues are disabled.
 
@@ -27,9 +27,21 @@ Blank issues are disabled.
 ### Documentation Changes
 
 - Content lives in `content/en/` (English) and `content/ru/` (Russian)
+- Update both languages in the same pull request; every page must exist at the same path in both directories
 - Use Markdown with Hugo front matter
 - Keep SPDX headers after the front matter closing `---`
 - Follow the existing file structure and naming conventions
+- See [AGENTS.md](AGENTS.md) for the full style, translation, and commit guidelines
+
+### Before Submitting
+
+Format the Markdown, check that both languages have the same files, and make sure the site builds. The symmetry check uses process substitution, so run these commands in bash or zsh:
+
+```bash
+npx prettier --write "**/*.md"
+diff <(cd content/en && find . -type f | sort) <(cd content/ru && find . -type f | sort)
+hugo --minify --gc
+```
 
 ### Building Locally
 
@@ -39,7 +51,7 @@ cd torrplay.github.io
 hugo server
 ```
 
-Requires Hugo extended v0.164.0+.
+Requires Hugo extended v0.166.0+.
 
 ## Code of Conduct
 
