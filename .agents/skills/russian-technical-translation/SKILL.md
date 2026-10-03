@@ -43,7 +43,7 @@ Documentation in Russian must read as if it were originally authored by an exper
 | в экземпляре включена     | в TorrPlay включена                                         | "Экземпляр" is often a clunky calque for "instance"                                                               |
 | позволяет вам выполнять   | позволяет выполнять / вы можете                             | Avoid literal "allows you to"                                                                                     |
 | предоставляет возможность | умеет / поддерживает / позволяет                            | Avoid pompous phrases                                                                                             |
-| под капотом               | внутри / на уровне движка                                   | "Under the hood" calque                                                                                           |
+| под капотом               | внутри / на уровне соответствующей подсистемы               | "Under the hood" calque; name the component when it matters                                                       |
 | бесшовный / бесшовно      | плавно / без разрывов / напрямую                            | Overused corporate buzzword                                                                                       |
 | обогащение / обогатить    | добавление / загрузка / обновление                          | Avoid "обогащение" and its derivatives (calque of "enrich/enrichment")                                            |
 | медиа-маршруты            | эндпоинты стриминга / запросы к видеопотокам или плейлистам | Literal calque of "media routes"; specify actual endpoints or operations                                          |
@@ -92,6 +92,10 @@ Use established Russian IT terminology while preserving English technical terms 
 | **Drop-in replacement**   | Полная замена / прямая совместимость         | Translate function, not idiom                                         |
 | **Endpoint**              | Эндпоинт / маршрут API                       | Avoid literal calque "конечная точка"                                 |
 | **Least privilege**       | Принцип наименьших привилегий                | Standard security terminology                                         |
+
+### Name the Component Behind “Engine”
+
+Do not translate **engine** with the generic `движок`. Name the component by its architectural role instead. Depending on context, use `подсистема потокового воспроизведения`, `BitTorrent-клиент`, `HTTP-сервер`, `Go-бэкенд`, or another precise term. Check the source architecture rather than choosing one replacement mechanically.
 
 ---
 

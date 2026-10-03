@@ -39,6 +39,7 @@ When writing, updating, or maintaining documentation in this repository, follow 
    - **English**: Use clear, concise, and technically accurate modern American English.
    - **Russian**: The Russian documentation must sound natural, lively, and idiomatic, as if originally authored by a native technical writer or systems engineer. Avoid mechanical word-for-word translation, English grammatical calques, heavy chains of genitive cases, and passive bureaucratic phrasing ("канцелярит").
    - **Translation Skill**: When writing, translating, or reviewing Russian documentation (`content/ru/`), follow the guidelines in [`.agents/skills/russian-technical-translation/SKILL.md`](.agents/skills/russian-technical-translation/SKILL.md).
+   - **Current-State Documentation**: Treat the site as an initial publication and describe only the current product behavior. Omit obsolete settings and behavior instead of explaining their removal. Do not use wording such as "now," "no longer," "previously," "replaced," `теперь`, `больше нет`, or `раньше` when it contrasts the current product with an unpublished earlier state. These words remain acceptable when they describe current operations or ordinary relative timing. Use historical or migration language only in an explicitly requested changelog, release note, or migration guide.
    - Ensure consistency in terminology across all pages (e.g., streaming terms, TorrPlay settings, UI labels).
    - Translate front matter `title` and section headings into the target language.
 

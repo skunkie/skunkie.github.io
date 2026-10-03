@@ -58,7 +58,7 @@ curl -o torrplay.m3u http://localhost:8090/api/v1/playlist
 When authentication is enabled on your TorrPlay instance, supply a scoped playback token to fetch the playlist:
 
 ```sh
-vlc "http://localhost:8090/api/v1/playlist?token=tp_play_9f8a3c2e1b..."
+vlc "http://localhost:8090/api/v1/playlist?token=your-playback-token"
 ```
 
 When you request `/api/v1/playlist?token=...`, TorrPlay automatically embeds the token into each individual stream URL in the resulting M3U output. Media players can seamlessly access all video files without requiring manual login or credential prompts. See the [Authentication Guide](/docs/authentication/) for generating playback tokens.
@@ -69,7 +69,12 @@ When you request `/api/v1/playlist?token=...`, TorrPlay automatically embeds the
 
 **Endpoint:** `GET /api/system/logs`
 
-**Returns:** JSON array of recent log entries
+**Returns:** JSON array of recent log entries, newest first
+
+| Parameter | Type   | Required | Description                                               |
+| --------- | ------ | -------- | --------------------------------------------------------- |
+| `q`       | string | No       | Case-insensitive search in messages and structured fields |
+| `level`   | string | No       | Exact level: `DEBUG`, `INFO`, `WARN`, or `ERROR`          |
 
 TorrPlay keeps the most recent log entries in an in-memory circular ring buffer, providing a quick way to inspect recent application events without requiring filesystem access. This approach is particularly useful for containerized deployments or when direct access to log files may be restricted.
 
@@ -85,28 +90,34 @@ TorrPlay keeps the most recent log entries in an in-memory circular ring buffer,
 
 Each entry in the returned JSON array contains the following fields:
 
-| Field   | Type   | Description                                          |
-| ------- | ------ | ---------------------------------------------------- |
-| `time`  | string | ISO 8601 timestamp of the event                      |
-| `level` | string | Log level: `DEBUG`, `INFO`, `WARN`, or `ERROR`       |
-| `msg`   | string | Human-readable log message                           |
-| `data`  | object | Optional structured key-value data; omitted if empty |
+| Field     | Type   | Description                                          |
+| --------- | ------ | ---------------------------------------------------- |
+| `time`    | string | ISO 8601 timestamp of the event                      |
+| `level`   | string | Log level: `DEBUG`, `INFO`, `WARN`, or `ERROR`       |
+| `message` | string | Human-readable log message                           |
+| `data`    | object | Optional structured key-value data; omitted if empty |
 
 ### Example Response
 
 ```json
 [
   {
-    "time": "2026-01-01T12:00:00Z",
-    "level": "INFO",
-    "msg": "stopping background downloader"
-  },
-  {
     "time": "2026-01-01T12:00:01Z",
     "level": "DEBUG",
-    "msg": "streaming is active, pausing background downloader"
+    "message": "streaming is active, pausing background downloader"
+  },
+  {
+    "time": "2026-01-01T12:00:00Z",
+    "level": "INFO",
+    "message": "stopping background downloader"
   }
 ]
+```
+
+Filter the retained entries without reading log files from disk:
+
+```sh
+curl "http://localhost:8090/api/system/logs?level=ERROR&q=storage"
 ```
 
 ### Adjusting Verbosity & Retention

@@ -31,12 +31,18 @@ See the [Authentication Guide](/docs/authentication/) for generating and managin
 
 ## Preloading & Buffer Management
 
-TorrPlay includes an intelligent preloading service that prefetches starting pieces ahead of playback to guarantee instantaneous streaming starts without buffering pauses:
+Playback readers and preloads run in one shared streaming engine. The engine coordinates their piece priorities, read-ahead budget, and memory-eviction protection so active playback takes priority without discarding useful preload data:
 
-- **Preload API (`PUT /api/v1/torrents/{hash}/preload`):** Declares an active file for preloading, spinning up background workers to buffer playback boundaries.
-- **Buffer Progress (`GET /api/v1/torrents/{hash}/preload`):** Tracks current preload bytes, target buffer size, and percentage.
+- **Adaptive Read-Ahead:** TorrPlay derives a shared read-ahead budget from `max_memory` (see [Streaming Memory Budget](/docs/settings/#streaming-memory-budget)). Active memory-storage readers divide the available budget dynamically.
+- **Progressive Read-Ahead:** For a new reader—or one that has just sought—TorrPlay sets the window to the smaller of its allocated share and a ramp limit. The limit is at least 1 MiB, rounds up to a whole number of torrent pieces, and grows toward the reader's allocated share as playback continues. This avoids downloading far past a container header before the player seeks to the media data.
+- **Playback Priority:** Pieces immediately ahead of playback receive higher priority than preload pieces. A released reader lingers for up to 30 seconds so consecutive HTTP range requests can reuse the data already being fetched.
+- **Resume-Aware Preloading:** A preload caches the file's head and tail and can also cache a window around `playback_position_seconds` after resolving the container seek index.
+- **Bounded Scheduling:** Each torrent has at most one preload, and no more than two preloads download concurrently. Additional work waits in the `queued` state.
+- **Preload API (`PUT /api/v1/torrents/{hash}/preload`):** Starts or replaces the preload for a torrent file and optional resume position.
+- **Buffer Progress (`GET /api/v1/torrents/{hash}/preload`):** Reports target and completed bytes, progress, peer counts, download rate, and the `idle`, `queued`, `preloading`, `ready`, `failed`, or `evicted` state.
 - **Visual Preload UI:** The TorrPlay Web UI displays an animated buffering badge on torrent cards while pieces are being prefetched.
-- **Reader Isolation:** Active playback streams protect downloaded piece windows from LRU memory eviction.
+- **Eviction Protection:** Active playback windows and memory-storage preloads are protected from normal LRU eviction. Under severe memory pressure, protected pieces become last-resort eviction candidates.
+- **Short-Lived Ready Cache:** An unread ready preload remains cached for 10 seconds. Once playback has used it, TorrPlay releases it after the file's last active or lingering reader closes.
 
 ## Web Client & Video Engine
 
@@ -71,7 +77,7 @@ TorrPlay offers two distinct storage backends for managing torrent data:
 
 {{< tabs >}}
 {{< tab name="Memory Storage" >}}
-Torrent pieces are downloaded and cached in RAM up to a configurable limit (`max_memory`). When the limit is reached, a Least Recently Used (LRU) eviction policy discards the oldest pieces while protecting active playback ranges.
+Torrent pieces are downloaded and cached in RAM up to a configurable limit (`max_memory`). When the limit is reached, a Least Recently Used (LRU) policy first evicts unprotected pieces, then file-boundary pieces, and finally active playback or preload ranges if reclaiming memory is otherwise impossible.
 
 **Pros:**
 
@@ -111,7 +117,7 @@ When enabled (`enable_downloader: true`), TorrPlay automatically downloads file-
 
 ## Prometheus Metrics & Observability
 
-TorrPlay exports real-time metrics in Prometheus format via `/metrics` and `/api/system/metrics`. Custom metrics track active background downloads (`torrplay_downloading_torrents`), active streaming sessions (`torrplay_streaming_torrents`), request latency histograms, and Go runtime stats.
+TorrPlay exports Prometheus metrics at `/metrics` and a compact JSON activity summary at `/api/system/metrics`. Custom metrics track background downloads (`torrplay_downloading_torrents`), torrents with open playback sessions (`torrplay_streaming_torrents`), live stream requests (`torrplay_stream_requests_in_flight`), request latency histograms, and Go runtime stats.
 
 See the **[Metrics & Monitoring Guide](/docs/metrics/)** for details.
 

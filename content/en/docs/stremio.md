@@ -28,7 +28,7 @@ When installed, TorrPlay exposes your active torrent library as browsable movie 
 
 ### 1. Enable Stremio in Settings
 
-Stremio support is enabled by default. To verify or toggle it:
+Stremio support is disabled by default. Enable or disable it using either method:
 
 - **Web UI:** Navigate to **Settings** → toggle **Enable Stremio**.
 - **API:** Send a `PATCH /api/v1/settings` request with `{"enable_stremio": true}`.

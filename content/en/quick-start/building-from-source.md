@@ -28,7 +28,7 @@ graph LR
 
 - **Go** (version 1.26 or later)
 - **Make** (for static client build automation)
-- **Node.js 24+ & pnpm 10+** (if building client files manually without Docker/Make)
+- **Node.js 24+ and pnpm 10+**, or **Docker** (the `make client` target uses local pnpm when available and otherwise falls back to Docker)
 
 ---
 
@@ -47,7 +47,7 @@ cd torrplay
 make client
 ```
 
-This compiles the Next.js frontend using Docker and copies the exported static web files into `./web/static/`.
+This compiles the Next.js frontend with local pnpm when available, or falls back to Docker, then copies the exported static web files into `./web/static/`.
 
 ### 3. Build the Application Binary
 

@@ -61,7 +61,7 @@ sequenceDiagram
     autonumber
     participant TV as Смарт-ТВ / медиаплеер
     participant DLNA as DLNA-сервер TorrPlay
-    participant Engine as Движок HTTP-стриминга TorrPlay
+    participant Engine as HTTP-сервер TorrPlay
 
     DLNA->>TV: Оповещение SSDP Discovery (UPnP ContentDirectory)
     TV->>DLNA: Обзор дерева ContentDirectory (категории и файлы)

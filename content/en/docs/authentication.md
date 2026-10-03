@@ -19,18 +19,20 @@ By default, authentication is **disabled**.
 
 ### Basic Authentication (`basic`)
 
-Requires username and password with every API request via the standard HTTP `Authorization: Basic ...` header.
+Requires username and password with every protected API request via the standard HTTP `Authorization: Basic ...` header.
 
 ### Bearer Token Authentication (`bearer`)
 
-Token-based authentication using JSON Web Tokens (JWT). API requests pass the JWT in the `Authorization: Bearer <token>` header.
+Token-based authentication using JSON Web Tokens (JWT). Protected API requests pass the JWT in the `Authorization: Bearer <token>` header.
+
+Usernames must contain 4–64 characters and passwords 4–128 characters.
 
 ## Enabling Authentication
 
 {{< tabs >}}
 {{< tab name="Basic Auth" >}}
 
-Username and password are required for all API operations.
+Username and password are required for protected API operations.
 
 ```sh
 curl -X PATCH http://localhost:8090/api/v1/settings \
@@ -48,7 +50,7 @@ curl -X PATCH http://localhost:8090/api/v1/settings \
 {{< /tab >}}
 {{< tab name="Bearer Token Auth" >}}
 
-JWT tokens are used for authentication across all endpoints.
+JWT tokens are used for protected API endpoints.
 
 ```sh
 curl -X PATCH http://localhost:8090/api/v1/settings \
@@ -87,6 +89,14 @@ Response:
 }
 ```
 
+Access tokens expire after 24 hours. The token endpoint and `/api/system/health` are public so clients can sign in and check whether TorrPlay is available.
+
+## Updating Authentication Settings
+
+`GET /api/v1/settings` never returns the password. When updating other authentication fields, omit `password` from the `PATCH /api/v1/settings` request to keep the current password.
+
+Changing any authentication setting—including enabling or disabling authentication, changing its type, or updating credentials—revokes all active access, playback, and Stremio tokens.
+
 ## Scoped Playback Tokens
 
 When authentication is enabled (either Basic or Bearer), streaming endpoints (`/api/v1/stream/*`), playlist generation (`/api/v1/playlist`), and Stremio streams require authentication.
@@ -110,19 +120,21 @@ Response:
 
 ```json
 {
-  "token": "tp_play_9f8a3c2e1b...",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "scope": "playback",
   "expires_at": "2026-09-11T16:00:00Z"
 }
 ```
+
+Playback tokens expire after 24 hours.
 
 ### Using Playback Tokens in Media URLs
 
 Pass the token as a `token` query parameter in streaming and playlist URLs:
 
 ```text
-http://localhost:8090/api/v1/stream/{hash}?path=video.mp4&token=tp_play_9f8a3c2e1b...
-http://localhost:8090/api/v1/playlist?token=tp_play_9f8a3c2e1b...
+http://localhost:8090/api/v1/stream/{hash}?path=video.mp4&token=your-playback-token
+http://localhost:8090/api/v1/playlist?token=your-playback-token
 ```
 
 > [!IMPORTANT]

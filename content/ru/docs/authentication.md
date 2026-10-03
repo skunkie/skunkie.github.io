@@ -19,18 +19,20 @@ TorrPlay защищает API и стриминг с помощью двух м�
 
 ### Базовая аутентификация (`basic`)
 
-Требует передачи логина и пароля в каждом запросе через стандартный HTTP-заголовок `Authorization: Basic ...`.
+Для каждого защищённого запроса к API нужно передавать имя пользователя и пароль в стандартном HTTP-заголовке `Authorization: Basic ...`.
 
 ### Аутентификация по Bearer-токену (`bearer`)
 
-Работает на основе JWT (JSON Web Tokens). Токен передаётся в заголовке `Authorization: Bearer <token>`.
+Работает на основе JWT (JSON Web Tokens). При обращении к защищённым эндпоинтам токен передаётся в заголовке `Authorization: Bearer <token>`.
+
+Имя пользователя должно содержать от 4 до 64 символов, пароль — от 4 до 128 символов.
 
 ## Включение аутентификации
 
 {{< tabs >}}
 {{< tab name="Basic Auth" >}}
 
-Имя пользователя и пароль требуются для всех операций API.
+Имя пользователя и пароль требуются для всех защищённых операций API.
 
 ```sh
 curl -X PATCH http://localhost:8090/api/v1/settings \
@@ -48,7 +50,7 @@ curl -X PATCH http://localhost:8090/api/v1/settings \
 {{< /tab >}}
 {{< tab name="Bearer Token Auth" >}}
 
-JWT-токены используются для доступа ко всем эндпоинтам приложения.
+Для доступа к защищённым эндпоинтам используется JWT-токен.
 
 ```sh
 curl -X PATCH http://localhost:8090/api/v1/settings \
@@ -87,6 +89,14 @@ curl -X POST http://localhost:8090/oauth/token \
 }
 ```
 
+Срок действия токена — 24 часа. Эндпоинт выдачи токенов и `/api/system/health` доступны без аутентификации: так клиент может войти в систему и проверить доступность TorrPlay.
+
+## Изменение настроек аутентификации
+
+В ответе `GET /api/v1/settings` пароль никогда не возвращается. Если вы меняете другие параметры аутентификации и хотите сохранить текущий пароль, не добавляйте поле `password` в запрос `PATCH /api/v1/settings`.
+
+Любое изменение настроек аутентификации — включение или отключение защиты, выбор другого типа или смена учётных данных — отзывает все активные токены доступа, воспроизведения и Stremio.
+
 ## Делегированные токены воспроизведения (Playback Tokens)
 
 Если в TorrPlay включена аутентификация (Basic или Bearer), стриминг (`/api/v1/stream/*`), генерация плейлистов (`/api/v1/playlist`) и потоки Stremio также защищаются.
@@ -110,19 +120,21 @@ _(При использовании Basic Auth укажите `-u your-username:
 
 ```json
 {
-  "token": "tp_play_9f8a3c2e1b...",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "scope": "playback",
   "expires_at": "2026-09-11T16:00:00Z"
 }
 ```
+
+Токен воспроизведения действует 24 часа.
 
 ### Использование токенов воспроизведения в ссылках
 
 Передайте полученный токен в параметре запроса `token`:
 
 ```text
-http://localhost:8090/api/v1/stream/{hash}?path=video.mp4&token=tp_play_9f8a3c2e1b...
-http://localhost:8090/api/v1/playlist?token=tp_play_9f8a3c2e1b...
+http://localhost:8090/api/v1/stream/{hash}?path=video.mp4&token=your-playback-token
+http://localhost:8090/api/v1/playlist?token=your-playback-token
 ```
 
 > [!IMPORTANT]

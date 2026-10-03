@@ -25,7 +25,7 @@ The request body is a JSON object. Only the fields you include are updated — o
 | ---------------------- | ---------------- | ------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `enable_dlna`          | boolean          | `false`             | —                                              | Enable the built-in DLNA media server                                                                  |
 | `enable_downloader`    | boolean          | `false`             | —                                              | Enable background downloading for file-storage torrents                                                |
-| `enable_stremio`       | boolean          | `true`              | —                                              | Enable native Stremio Addon Protocol support — see [Stremio Integration](/docs/stremio)                |
+| `enable_stremio`       | boolean          | `false`             | —                                              | Enable native Stremio Addon Protocol support — see [Stremio Integration](/docs/stremio)                |
 | `cors_allowed_origins` | array of strings | `[]`                | valid URIs                                     | Additional origins allowed to access the API via CORS (loopback, Tauri, and Capacitor always trusted)  |
 | `file_storage_path`    | string           | `""`                | —                                              | Filesystem path for file-based piece storage                                                           |
 | `friendly_name`        | string           | `"TorrPlay"`        | 3–15 characters                                | DLNA server name broadcast on the local network                                                        |
@@ -34,7 +34,6 @@ The request body is a JSON object. Only the fields you include are updated — o
 | `log_level`            | string (enum)    | `"INFO"`            | `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"` | Minimum log severity level — set to `"DEBUG"` for verbose diagnostics                                  |
 | `log_store_size`       | integer          | `100`               | 0–1000                                         | Number of recent log entries kept in the in-memory ring buffer, retrievable via `GET /api/system/logs` |
 | `max_memory`           | integer (bytes)  | `67108864` (64 MiB) | 33554432–2147483648 (32 MiB – 2 GiB)           | Maximum RAM allocated for torrent piece caching                                                        |
-| `readahead_percentage` | integer (%)      | `90`                | 50–100                                         | Percentage of `max_memory` reserved for read-ahead buffering ahead of the current stream position      |
 | `torrent_trackers`     | array of strings | `[]`                | —                                              | Custom tracker list (see [Tracker Format](#tracker-format))                                            |
 | `auth`                 | object           | —                   | —                                              | Authentication configuration — see [Authentication](/docs/authentication)                              |
 | `torrent_client`       | object           | —                   | —                                              | Torrent client settings — see [Torrent Client Settings](#torrent-client-settings)                      |
@@ -47,6 +46,10 @@ The request body is a JSON object. Only the fields you include are updated — o
 ## Background Downloader
 
 When `enable_downloader` is `true`, TorrPlay automatically downloads torrents that use file storage in the background. Background downloads are automatically **paused** whenever any streaming session becomes active to avoid bandwidth contention, and **resume** when all streaming sessions end. The downloader polls for eligible torrents every 60 seconds.
+
+## Streaming Memory Budget
+
+The streaming engine derives its read-ahead budget from `max_memory`. The budget scales from 50% of `max_memory` at 64 MiB or less to 75% at 512 MiB or more. Memory-storage playback readers and preloads share this budget, while the engine always reserves capacity for new playback readers. File-storage readers use a fixed read-ahead window.
 
 ## Tracker Format
 
@@ -94,7 +97,6 @@ curl -X PATCH http://localhost:8090/api/v1/settings \
   -H "Content-Type: application/json" \
   -d '{
     "max_memory": 134217728,
-    "readahead_percentage": 80,
     "enable_downloader": true,
     "log_level": "DEBUG",
     "log_format": "json",

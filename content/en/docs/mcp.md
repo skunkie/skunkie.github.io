@@ -30,12 +30,12 @@ torrplay mcp [flags]
 
 ## CLI Options & Environment Variables
 
-| Flag         | Env Variable     | Default                 | Description                                                        |
-| ------------ | ---------------- | ----------------------- | ------------------------------------------------------------------ |
-| `-url`       | `TORRPLAY_URL`   | `http://127.0.0.1:8090` | Base URL of the running TorrPlay application                       |
-| `-token`     | `TORRPLAY_TOKEN` | —                       | Scoped access token or JWT (required if authentication is enabled) |
-| `-transport` | —                | `stdio`                 | Transport protocol: `stdio` or `sse`                               |
-| `-addr`      | —                | `127.0.0.1:8091`        | Loopback address and port to listen on when using `sse` transport  |
+| Flag         | Env Variable     | Default                 | Description                                                         |
+| ------------ | ---------------- | ----------------------- | ------------------------------------------------------------------- |
+| `-url`       | `TORRPLAY_URL`   | `http://127.0.0.1:8090` | Base URL of the running TorrPlay application                        |
+| `-token`     | `TORRPLAY_TOKEN` | —                       | Administrative Bearer JWT (required when authentication is enabled) |
+| `-transport` | —                | `stdio`                 | Transport protocol: `stdio` or `sse`                                |
+| `-addr`      | —                | `127.0.0.1:8091`        | Loopback address and port to listen on when using `sse` transport   |
 
 ## Available Capabilities
 
@@ -47,17 +47,32 @@ torrplay mcp [flags]
 - `delete_torrent`: Remove a torrent and release its cached pieces from memory.
 - `update_torrent`: Modify metadata such as titles, categories, and poster URLs.
 - `get_stream_url`: Generate direct HTTP stream URLs with valid scoped playback tokens for specified video files.
+- `preload_torrent`: Start or replace a file preload, optionally around a saved playback position.
+- `get_preload_status`: Read the current preload state, progress, peer counts, and download rate.
+- `cancel_preload`: Cancel a torrent preload and release its reserved memory and priorities.
+- `get_memory_stats`: Inspect RAM cache usage, limits, and piece-buffer statistics.
+- `get_torrent_stats`: Inspect download speed, peers, readers, and piece state for one torrent.
+- `get_system_info`: Read the application version, build, uptime, and deployment information.
+- `get_system_logs`: Search retained application logs and filter them by level.
+- `get_system_metrics`: Read current torrent activity and network transfer rates.
 
 ### Resources
 
 - `torrplay://torrents`: Real-time list of all torrents in the active library.
 - `torrplay://torrents/{hash}`: Detailed state of an individual torrent.
-- `torrplay://metrics/memory`: Current RAM piece cache utilization and LRU eviction status.
+- `torrplay://system/memory`: Current RAM piece cache utilization and LRU eviction status.
+- `torrplay://system/info`: Application version, build, uptime, and deployment information.
+- `torrplay://system/logs`: Most recent retained application log entries.
+- `torrplay://system/metrics`: Current torrent activity and network transfer rates.
 
 ### Prompts
 
-- `identify-video-files`: Analyzes multi-file torrents to locate the main feature video and relevant audio/subtitle tracks.
-- `diagnose-stream-buffer`: Evaluates reader positions, prefetch buffers, and download rates to diagnose playback stutter.
+- `find_playable_file`: Inspects a torrent, identifies its primary video file, and prepares a stream URL for it.
+- `stream_diagnostics`: Evaluates peer, piece, reader, and memory statistics to diagnose playback stalls.
+
+## Authentication
+
+The MCP client sends `TORRPLAY_TOKEN` as an HTTP Bearer credential on every API request. When authentication is enabled, configure TorrPlay to use Bearer authentication and supply an administrative JWT obtained from `/oauth/token`. Playback and Stremio tokens are restricted to media routes and cannot authorize MCP management tools. The built-in MCP client does not send Basic Authentication credentials.
 
 ## Setup with Claude Desktop
 
@@ -71,7 +86,7 @@ To configure TorrPlay MCP with [Claude Desktop](https://claude.ai/download), add
       "args": ["mcp"],
       "env": {
         "TORRPLAY_URL": "http://127.0.0.1:8090",
-        "TORRPLAY_TOKEN": "your-auth-token-if-enabled"
+        "TORRPLAY_TOKEN": "your-jwt-token-if-enabled"
       }
     }
   }
