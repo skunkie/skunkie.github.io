@@ -9,6 +9,11 @@ theme: "hextra"
 enableGitInfo: true
 enableRobotsTXT: true
 
+# The site uses no tags or categories, so skip their empty listing pages.
+disableKinds:
+  - taxonomy
+  - term
+
 defaultContentLanguage: "en"
 defaultContentLanguageInSubdir: false
 
