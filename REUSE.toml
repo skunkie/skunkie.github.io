@@ -3,9 +3,20 @@
 # SPDX-License-Identifier: MIT
 
 # Images and JSON cannot carry comment headers, so their license is declared here.
+# The icons are copied from the TorrPlay client (torrplay/torrplay, client/).
 version = 1
 
 [[annotations]]
-path = ["static/favicon.png", "static/logo.png", "static/site.webmanifest"]
+path = [
+  "static/android-chrome-192x192.png",
+  "static/android-chrome-512x512.png",
+  "static/apple-touch-icon.png",
+  "static/favicon-16x16.png",
+  "static/favicon-32x32.png",
+  "static/favicon.ico",
+  "static/favicon.png",
+  "static/logo.png",
+  "static/site.webmanifest",
+]
 SPDX-FileCopyrightText = "2026 TorrPlay"
 SPDX-License-Identifier = "MIT"
