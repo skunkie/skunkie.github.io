@@ -1,0 +1,15 @@
+/*
+ * SPDX-FileCopyrightText: 2026 TorrPlay
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/*
+ * Hextra pushes a card's text to the bottom with `margin-top: auto`, which suits
+ * image cards. Text-only cards share a grid row with neighbors whose titles wrap
+ * or whose subtitles differ in length, so pin their text to the top to keep the
+ * titles in each row on the same line.
+ */
+.hextra-card:not(:has(> img)) > div {
+  margin-top: 0;
+}
