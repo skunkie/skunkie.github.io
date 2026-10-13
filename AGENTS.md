@@ -107,6 +107,7 @@ When writing, updating, or maintaining documentation in this repository, follow 
   - **Client-Side Sanitization**: Any external or dynamic markup rendered in templates (such as markdown release notes fetched from GitHub) must be sanitized with DOMPurify before inserting into the DOM.
   - **Code Comments**: In templates, scripts, workflows, and configuration, explain why the current code is written the way it is. Do not describe previous implementations, removed code, or the bugs a change fixed; record that history in the commit message.
   - **Hextra Styling**: Use Hextra's scoped utility classes (`hx:...`) to prevent styling conflicts and ensure consistent dark/light mode and responsive behavior.
+  - **Custom CSS**: When a utility class cannot express a style, put the rule in `assets/css/custom.css`, which Hextra loads after its own stylesheet. Order each rule's properties by RECESS ([`stylelint-config-recess-order`](https://github.com/stormwarning/stylelint-config-recess-order)), the order Bootstrap enforces.
 
 ## Development Workflow & Commands
 
