@@ -77,7 +77,7 @@ In this example the first tier contains one tracker and the second tier contains
 
 ## Torrent Client Settings
 
-The `torrent_client` object controls the behaviour of the underlying BitTorrent engine.
+The `torrent_client` object controls the behavior of the underlying BitTorrent engine.
 
 | Field                                  | Type              | Default           | Constraints | Description                                                            |
 | -------------------------------------- | ----------------- | ----------------- | ----------- | ---------------------------------------------------------------------- |
