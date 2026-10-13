@@ -64,7 +64,7 @@ TorrPlay выпускается в виде готовых инсталлято�
 | **Исполняемый файл**           | `torrplay-darwin-<arch>`         | `chmod +x torrplay-darwin-arm64 && ./torrplay-darwin-arm64`                        |
 
 > [!NOTE]
-> macOS Gatekeeper может заблокировать неподписанное приложение. Чтобы разблокировать, выполните в Terminal: `xattr -c /Applications/TorrPlay.app`, затем щелкните правой кнопкой мыши → **Открыть**.
+> macOS Gatekeeper может заблокировать неподписанное приложение. Чтобы разблокировать, выполните в Terminal: `xattr -c /Applications/TorrPlay.app`, затем щёлкните правой кнопкой мыши → **Открыть**.
 
 > [!TIP]
 > **Ограничение на macOS:** WKWebView в Tauri не загружает HTTP-страницы из-за App Transport Security. Чтобы смотреть видео, выберите плеер (VLC, IINA и др.) в настройках Tauri: External Player → Player Name. Плеер должен быть установлен в системе.

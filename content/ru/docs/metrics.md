@@ -53,7 +53,7 @@ TorrPlay отдаёт метрики в формате Prometheus в реаль�
 | `torrplay_torrent_banned_peers`        | Gauge   | —           | Адреса пиров, заблокированных за передачу повреждённых данных          |
 | `torrplay_torrent_data_bytes_total`    | Counter | `direction` | Полезные байты частей, полученные или отправленные BitTorrent-клиентом |
 | `torrplay_torrent_peers`               | Gauge   | `state`     | Подключённые пиры, устанавливаемые соединения и ожидающие адреса       |
-| `torrplay_torrent_pieces_hashed_total` | Counter | `result`    | Части с успешной (`good`) или неуспешной (`bad`) проверкой хэша        |
+| `torrplay_torrent_pieces_hashed_total` | Counter | `result`    | Части с успешной (`good`) или неуспешной (`bad`) проверкой хеша        |
 
 ### Хранилище в оперативной памяти
 
@@ -66,7 +66,7 @@ TorrPlay отдаёт метрики в формате Prometheus в реаль�
 | `torrplay_storage_memory_used_bytes`              | Gauge   | —            | Память, зарезервированная сейчас под данные частей              |
 | `torrplay_storage_protected_evictions_total`      | Counter | `protection` | Вытеснение границ файлов и активных диапазонов в крайнем случае |
 | `torrplay_storage_read_failures_total`            | Counter | `reason`     | Ошибки чтения вытесненных или не полностью загруженных частей   |
-| `torrplay_storage_refused_hashes_total`           | Counter | —            | Отменённые проверки хэша после вытеснения части данных          |
+| `torrplay_storage_refused_hashes_total`           | Counter | —            | Отменённые проверки хеша после вытеснения части данных          |
 
 ### Коллекторы среды выполнения Go и системных показателей
 
